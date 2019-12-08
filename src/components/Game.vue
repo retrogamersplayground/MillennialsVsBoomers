@@ -17,7 +17,7 @@
       </div>
       <div class="gameDiv">
         <ul>
-          <li v-for="result in results" class="questionsLi">{{ result.question }}</li>
+          <li v-for="result in results" class="questionsLi" v-bind:value="result.question" v-bind:key="result.question">{{ JSON.stringify(result.question) }}</li>
         </ul>
       </div>
     </div>
@@ -27,25 +27,25 @@
 <script>
 import axios from 'axios'
 export default {
-  data() {
+  data () {
     return {
       wholeResponses: [],
       results: []
     }
   },
-  mounted() {
+  mounted () {
     axios
       .get('https://opentdb.com/api.php?amount=10')
       .then(response => {
         this.wholeResponses = response.data
-        console.log(this.wholeResponses.results[0].question)
+        console.log(this.wholeResponses.results)
         this.results = this.wholeResponses.results
       })
       .catch(error => {
         console.log(error)
       })
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -71,5 +71,16 @@ export default {
 }
 .boomerImage img {
   width: 70%;
+}
+.gameDiv ul {
+    list-style-type: none;
+    width: 80%;
+    margin: auto;
+    padding-top: 50px;
+}
+.questionsLi {
+    text-align: left;
+    font-size: 24px;
+    margin-bottom: 100px;
 }
 </style>
