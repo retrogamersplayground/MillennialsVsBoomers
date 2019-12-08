@@ -1,6 +1,6 @@
 
 <template>
-  <div class="home">
+  <div class="game">
     <div class="welcomeDiv">
       <h1>
         <span class="millennialFont">Millennials</span> vs.
@@ -15,9 +15,9 @@
       <div class="homeImage">
         <img src="@/assets/millennial.png" alt="millennial" />
       </div>
-      <div>
+      <div class="gameDiv">
         <ul>
-          <li v-for="result in results">{{ result.question }}</li>
+          <li v-for="result in results" class="questionsLi">{{ result.question }}</li>
         </ul>
       </div>
     </div>

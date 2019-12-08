@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="millennial">
     <div class="welcomeDiv">
       <h1><span class="millennialFont">Millennials</span> vs. <span class="boomerFont">Boomers</span></h1>
     </div>
@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: 'Millennial',
   data () {
     return {
       msg: ''
