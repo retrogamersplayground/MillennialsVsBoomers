@@ -6,9 +6,9 @@
     <div class="showcaseDiv">
       <h2>Ok Boomer!</h2>
     </div>
-    <div class="homeImages">
+    <div class="boomerImages">
       <h2 class="boomerFont">Boomer</h2>
-      <div class="homeImage">
+      <div class="boomerImage">
           <img src="@/assets/boomer.png" alt="boomer" />
       </div>
       <button>Play</button>
@@ -29,7 +29,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.home {
+.boomer {
   text-align: center;
 }
 .welcomeDiv {
@@ -39,12 +39,12 @@ export default {
 .showcaseDiv h2{
   margin-top: 50px;
 }
-.homeImages {
+.boomerImages {
   width: 100%;
   background-color: #E38120;
   color: white;
 }
-.homeImage {
+.boomerImage {
   width: 45%;
   display: inline-block;
 }
@@ -53,7 +53,7 @@ export default {
   padding-top: 20px;
   padding-bottom: 20px;
 }
-.homeImage img {
+.boomerImage img {
   width: 70%;
 }
 button {

@@ -10,9 +10,9 @@
     <div class="showcaseDiv">
       <h2>Let's Play!</h2>
     </div>
-    <div class="homeImages">
+    <div class="gameImages">
       <h2 class="millennialFont">Millennial</h2>
-      <div class="homeImage">
+      <div class="gameImage">
         <img src="@/assets/millennial.png" alt="millennial" />
       </div>
       <div class="gameDiv">
@@ -50,7 +50,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.home {
+.game {
   text-align: center;
 }
 .welcomeDiv {
@@ -60,37 +60,16 @@ export default {
 .showcaseDiv h2{
   margin-top: 50px;
 }
-.homeImages {
+.gameImages {
   width: 100%;
   background-color: #6775B6;
   color: white;
 }
-.homeImage {
+.gameImage {
   width: 45%;
   display: inline-block;
 }
-.chooseH2 {
-  font-size: 32px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-.homeImage img {
+.boomerImage img {
   width: 70%;
-}
-button {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-  display: block;
-  padding: 20px 50px 20px;
-  background-color: #ffffff;
-  color: #6775b6;
-  font-size: 24px;
-  border: 2px solid #ffffff;
-  border-radius: 6px;
-}
-button:hover {
-    background-color: #6775b6;
-    color: #ffffff;
 }
 </style>
