@@ -17,7 +17,14 @@
       </div>
       <div class="gameDiv">
         <ul>
-          <li v-for="result in results" class="questionsLi" v-bind:value="result.question" v-bind:key="result.question">{{ JSON.stringify(result.question) }}</li>
+          <li v-for="question in questionBank" class="questionsLi" v-bind:value="question" v-bind:key="question">{{ question[0] }}
+            <ul>
+              <li><button class="answerButton">{{ question[1] }}</button></li>
+              <li><button class="answerButton">{{ question[2][0] }}</button></li>
+              <li><button class="answerButton">{{ question[2][1] }}</button></li>
+              <li><button class="answerButton">{{ question[2][2] }}</button></li>
+            </ul>
+          </li>
         </ul>
       </div>
     </div>
@@ -30,7 +37,8 @@ export default {
   data () {
     return {
       wholeResponses: [],
-      results: []
+      results: [],
+      questionBank: []
     }
   },
   mounted () {
@@ -38,12 +46,17 @@ export default {
       .get('https://opentdb.com/api.php?amount=10')
       .then(response => {
         this.wholeResponses = response.data
-        console.log(this.wholeResponses.results)
         this.results = this.wholeResponses.results
+        for (const result of this.results) {
+          this.questionBank.push([result.question, result.correct_answer, result.incorrect_answers])
+          console.log(this.questionBank[0][1])
+        }
       })
       .catch(error => {
         console.log(error)
       })
+  },
+  methods: {
   }
 }
 </script>
@@ -74,7 +87,7 @@ export default {
 }
 .gameDiv ul {
     list-style-type: none;
-    width: 80%;
+    width: 100%;
     margin: auto;
     padding-top: 50px;
 }
@@ -82,5 +95,23 @@ export default {
     text-align: left;
     font-size: 24px;
     margin-bottom: 100px;
+}
+.questionsLi ul li {
+  display: inline-block;
+}
+.answerButton {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  padding: 20px 50px 20px;
+  background-color: #ffffff;
+  color: #6775b6;
+  font-size: 24px;
+  border: 2px solid #ffffff;
+  border-radius: 6px;
+}
+.answerButton:hover {
+    background-color: #6775b6;
+    color: #ffffff;
 }
 </style>
