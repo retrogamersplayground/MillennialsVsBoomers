@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Millennial from '@/components/Millennial'
 import Boomer from '@/components/Boomer'
 import Game from '@/components/Game'
+import Navigation from '@/components/Navigation'
 
 Vue.use(Router)
 
@@ -13,6 +14,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/Navigation',
+      name: 'Navigation',
+      component: Navigation
     },
     {
       path: '/Millennial',

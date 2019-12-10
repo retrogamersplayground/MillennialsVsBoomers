@@ -1,8 +1,6 @@
 <template>
   <div class="millennial">
-    <div class="welcomeDiv">
-      <h1><span class="millennialFont">Millennials</span> vs. <span class="boomerFont">BOOMERS</span></h1>
-    </div>
+    <app-navigation></app-navigation>
     <div class="showcaseDiv">
       <h2>Ok Snowflake!</h2>
     </div>
@@ -17,12 +15,15 @@
 </template>
 
 <script>
+import Navigation from './Navigation.vue'
 export default {
   name: 'Millennial',
   data () {
     return {
-      msg: ''
     }
+  },
+  components: {
+    'app-navigation': Navigation
   }
 }
 </script>

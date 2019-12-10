@@ -1,12 +1,6 @@
-
 <template>
   <div class="game">
-    <div class="welcomeDiv">
-      <h1>
-        <span class="millennialFont">Millennials</span> vs.
-        <span class="boomerFont">BOOMERS</span>
-      </h1>
-    </div>
+    <app-navigation></app-navigation>
     <div class="showcaseDiv">
       <h2>Let's Play!</h2>
     </div>
@@ -32,6 +26,7 @@
 </template>
 
 <script>
+import Navigation from './Navigation.vue'
 import axios from 'axios'
 export default {
   data () {
@@ -57,6 +52,9 @@ export default {
       })
   },
   methods: {
+  },
+  components: {
+    'app-navigation': Navigation
   }
 }
 </script>

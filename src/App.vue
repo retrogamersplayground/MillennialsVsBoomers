@@ -56,4 +56,13 @@ body {
 a {
   color: #ffffff;
 }
+ul {
+  list-style: none;
+}
+.welcomeDiv li{
+  display: inline-block;
+}
+.homeButton {
+  float: right;
+}
 </style>

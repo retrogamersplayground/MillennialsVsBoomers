@@ -1,8 +1,6 @@
 <template>
   <div class="home">
-    <div class="welcomeDiv">
-      <h1><span class="millennialFont">Millennials</span> vs. <span class="boomerFont">BOOMERS</span></h1>
-    </div>
+    <app-navigation></app-navigation>
     <div class="showcaseDiv">
       <h2>The trivia game where millennials go head to head with baby boomers</h2>
       <p>Players answer ten millennial questions and ten boomer questions to see which side will win!</p>
@@ -26,12 +24,15 @@
 </template>
 
 <script>
+import Navigation from './Navigation.vue'
 export default {
   name: 'Home',
   data () {
     return {
-      msg: ''
     }
+  },
+  components: {
+    'app-navigation': Navigation
   }
 }
 </script>
@@ -68,5 +69,8 @@ export default {
 }
 .homeImage img {
   width: 70%;
+}
+.homeButton {
+  text-align: right;
 }
 </style>
