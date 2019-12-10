@@ -1,13 +1,13 @@
 <template>
   <div class="boomer">
     <div class="welcomeDiv">
-      <h1><span class="millennialFont">Millennials</span> vs. <span class="boomerFont">Boomers</span></h1>
+      <h1><span class="millennialFont">Millennials</span> vs. <span class="boomerFont">BOOMER</span></h1>
     </div>
     <div class="showcaseDiv">
       <h2>Ok Boomer!</h2>
     </div>
     <div class="boomerImages">
-      <h2 class="boomerFont">Boomer</h2>
+      <h2 class="boomerFont">BOOMER</h2>
       <div class="boomerImage">
           <img src="@/assets/boomer.png" alt="boomer" />
       </div>

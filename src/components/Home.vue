@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="welcomeDiv">
-      <h1><span class="millennialFont">Millennials</span> vs. <span class="boomerFont">Boomers</span></h1>
+      <h1><span class="millennialFont">Millennials</span> vs. <span class="boomerFont">BOOMERS</span></h1>
     </div>
     <div class="showcaseDiv">
       <h2>The trivia game where millennials go head to head with baby boomers</h2>
@@ -18,7 +18,7 @@
       <div class="homeImage">
         <router-link to="/boomer">
           <img src="@/assets/boomer.png" alt="boomer" />
-          <h2 class="boomerFont">Boomer</h2>
+          <h2 class="boomerFont">BOOMER</h2>
         </router-link>
       </div>
     </div>

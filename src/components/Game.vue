@@ -4,7 +4,7 @@
     <div class="welcomeDiv">
       <h1>
         <span class="millennialFont">Millennials</span> vs.
-        <span class="boomerFont">Boomers</span>
+        <span class="boomerFont">BOOMERS</span>
       </h1>
     </div>
     <div class="showcaseDiv">

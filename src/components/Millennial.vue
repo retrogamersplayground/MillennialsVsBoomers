@@ -1,7 +1,7 @@
 <template>
   <div class="millennial">
     <div class="welcomeDiv">
-      <h1><span class="millennialFont">Millennials</span> vs. <span class="boomerFont">Boomers</span></h1>
+      <h1><span class="millennialFont">Millennials</span> vs. <span class="boomerFont">BOOMERS</span></h1>
     </div>
     <div class="showcaseDiv">
       <h2>Ok Snowflake!</h2>

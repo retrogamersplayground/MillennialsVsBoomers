@@ -40,6 +40,9 @@ ul[class],
 ol[class] {
   list-style: none;
 }
+a {
+  text-decoration: none;
+}
 /*End of reset*/
 body {
   font-family: 'Arial', 'Helvetica', sans-serif;
@@ -49,5 +52,8 @@ body {
 }
 .millennialFont {
   font-family: 'Monoton', cursive;
+}
+a {
+  color: #ffffff;
 }
 </style>
