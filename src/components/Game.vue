@@ -157,9 +157,7 @@ import Navigation from './Navigation.vue'
 export default {
   data () {
     return {
-      wholeResponses: [],
-      results: [],
-      questionBank: [],
+      questionBank: null,
       score: 0,
       correct_answer: null,
       question: {},
