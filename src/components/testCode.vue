@@ -109,15 +109,17 @@ export default {
   width: 70%;
 }
 .gameDiv ul {
-    list-style-type: none;
-    width: 100%;
-    margin: auto;
-    padding-top: 50px;
+  list-style-type: none;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 .questionsLi {
-    text-align: left;
-    font-size: 24px;
-    margin-bottom: 100px;
+  text-align: left;
+  font-size: 24px;
+  margin-bottom: 100px;
 }
 .questionsLi ul li {
   display: inline-block;

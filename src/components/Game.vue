@@ -130,6 +130,7 @@ export default {
         <img src="@/assets/millennial.png" alt="millennial" />
       </div>
       <div class="gameDiv">
+        <div class="gameCount">Question: {{ gameCount }}</div>
         <div class="score">Score: {{ score }}</div>
         <ul>
           <li v-html="currentQuestionText">{{ currentQuestionText }}</li>
@@ -160,10 +161,10 @@ export default {
       results: [],
       questionBank: [],
       score: 0,
-      newScore: localStorage.getItem('score'),
       correct_answer: null,
       question: {},
-      currentQuestionText: ''
+      currentQuestionText: '',
+      gameCount: 1
     }
   },
   async mounted () {
@@ -190,12 +191,17 @@ export default {
       }
     },
     async increaseScore (answer) {
-      if (answer === this.correct_answer) {
-        console.log('Correct', answer)
-        this.score += 1
+      if (this.gameCount < 10) {
+        if (answer === this.correct_answer) {
+          alert('Correct', answer)
+          this.score += 1
+        } else {
+          alert('Nope! Sorry Snowflake!')
+        }
+        this.gameCount += 1
         await this.getQuestion()
       } else {
-        console.log('Sorry guess again')
+        alert('GameOver')
       }
     }
   },
