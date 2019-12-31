@@ -162,13 +162,27 @@ export default {
       correct_answer: null,
       question: {},
       currentQuestionText: '',
-      gameCount: 1
+      gameCount: 1,
+      answerArray: [],
+      shuffledAnswers: []
     }
   },
   async mounted () {
     await this.getQuestion()
   },
   methods: {
+    shuffle (array) {
+      // eslint-disable-next-line
+      var currentIndex = array.length, temporaryValue, randomIndex
+      while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex -= 1
+        temporaryValue = array[currentIndex]
+        array[currentIndex] = array[randomIndex]
+        array[randomIndex] = temporaryValue
+      }
+      return array
+    },
     async getQuestion () {
       this.questionBank = []
 
@@ -179,11 +193,19 @@ export default {
         this.question = { ...res.data.results[0] }
         this.currentQuestionText = this.question.question
         this.correct_answer = this.question.correct_answer
+        this.answerArray = [
+          this.question.correct_answer,
+          this.question.incorrect_answers[0],
+          this.question.incorrect_answers[1],
+          this.question.incorrect_answers[2]
+        ]
+        this.shuffledAnswers = this.shuffle(this.answerArray)
         this.questionBank = [
           ...this.questionBank,
-          this.question.correct_answer,
-          ...this.question.incorrect_answers
+          ...this.shuffledAnswers
         ]
+        console.log(this.questionBank)
+        console.log(this.question.correct_answer)
       } catch (err) {
         console.error(err)
       }
