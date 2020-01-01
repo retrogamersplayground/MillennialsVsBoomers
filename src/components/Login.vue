@@ -1,22 +1,20 @@
 <template>
   <div>
     <div class="container">
-      <div class="row">
-        <div class="col s12 m8 offset-m2">
-          <div class="login card-panel green white-text center">
+      <div class="">
+        <div class="">
+          <div class="login">
             <h3>Login</h3>
             <form>
-              <div class="input-field">
-                <i class="material-icons prefix">email</i>
+              <div class="">
                 <input type="text" id="email" v-model="email" />
-                <label class="white-text" for="email">Email</label>
+                <label class="" for="email">Email</label>
               </div>
-              <div class="input-field">
-                <i class="material-icons prefix">lock</i>
+              <div class="">
                 <input type="text" id="password" v-model="password" />
-                <label class="white-text" for="email">Password</label>
+                <label class="" for="email">Password</label>
               </div>
-              <button v-on:click="login" class="btn btn-large grey lighten-4 black-text">Login</button>
+              <button v-on:click="login" class="">Login</button>
             </form>
             <router-link to="/reset" tag="h6">Forgot Your Password?</router-link>
           </div>
@@ -27,33 +25,33 @@
 </template>
 
 <script>
-import firebase from "firebase";
+import firebase from 'firebase'
 export default {
-  name: "login",
-  data: function() {
+  name: 'login',
+  data: function () {
     return {
-      email: "",
-      password: ""
-    };
+      email: '',
+      password: ''
+    }
   },
   methods: {
-    login: function(e) {
+    login: function (e) {
       firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(
           user => {
-            alert(`You are logged in as ${this.email}`);
-            this.$router.go({ path: this.$router.path });
+            alert(`You are logged in as ${this.email}`)
+            this.$router.go({ path: this.$router.path })
           },
           err => {
-            alert(err.message);
+            alert(err.message)
           }
-        );
-      e.preventDefault();
+        )
+      e.preventDefault()
     }
   }
-};
+}
 </script>
 
 <style scoped>

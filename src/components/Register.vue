@@ -1,22 +1,20 @@
 <template>
   <div>
     <div class="container">
-      <div class="row">
-        <div class="col s12 m8 offset-m2">
-          <div class="login card-panel grey lighten-4 black-text center">
+      <div class="">
+        <div class="">
+          <div class="login">
             <h3>Register</h3>
             <form>
-              <div class="input-field">
-                <i class="material-icons prefix">email</i>
+              <div class="">
                 <input type="text" id="email" v-model="email" />
                 <label for="email">Email</label>
               </div>
               <div class="input-field">
-                <i class="material-icons prefix">lock</i>
                 <input type="text" id="password" v-model="password" />
                 <label for="email">Password</label>
               </div>
-              <button v-on:click="register" class="btn btn-large grey lighten-4 black-text">Register</button>
+              <button v-on:click="register" class="">Register</button>
             </form>
           </div>
         </div>
@@ -26,31 +24,31 @@
 </template>
 
 <script>
-import firebase from "firebase";
+import firebase from 'firebase'
 export default {
-  name: "register",
-  data: function() {
+  name: 'register',
+  data: function () {
     return {
-      email: "",
-      password: ""
-    };
+      email: '',
+      password: ''
+    }
   },
   methods: {
-    register: function(e) {
+    register: function (e) {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(
           user => {
-            alert(`Account created for ${this.email}`);
-            this.$router.go({ path: this.$router.path });
+            alert(`Account created for ${this.email}`)
+            this.$router.go({ path: this.$router.path })
           },
           err => {
-            alert(err.message);
+            alert(err.message)
           }
-        );
-      e.preventDefault();
+        )
+      e.preventDefault()
     }
   }
-};
+}
 </script>

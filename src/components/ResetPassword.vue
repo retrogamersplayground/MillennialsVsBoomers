@@ -1,17 +1,16 @@
 <template>
   <div>
     <div class="container">
-      <div class="row">
-        <div class="col s12 m8 offset-m2">
-          <div class="login card-panel green white-text center">
+      <div class="">
+        <div class="">
+          <div class="login">
             <h3>Reset Password</h3>
             <form>
-              <div class="input-field">
-                <i class="material-icons prefix">email</i>
+              <div class="">
                 <input type="text" id="email" v-model="email" />
                 <label class="white-text" for="email">Email</label>
               </div>
-              <button v-on:click="reset" class="btn btn-large grey lighten-4 black-text">Reset</button>
+              <button v-on:click="reset" class="">Reset</button>
             </form>
           </div>
         </div>
@@ -21,28 +20,29 @@
 </template>
 
 <script>
-import firebase from "firebase";
+import firebase from 'firebase'
 export default {
-  name: "reset",
-  data: function() {
+  name: 'reset',
+  data: function () {
     return {
-      email: ""
-    };
+      email: ''
+    }
   },
   methods: {
-    reset: function(e) {
+    reset: function (e) {
       firebase
         .auth()
         .sendPasswordResetEmail(this.email)
-        .then(function() {
+        .then(function () {
           // Email sent.
-          alert("Reset Password Email Sent");
+          alert('Reset Password Email Sent')
         })
-        .catch(function(error) {
+        .catch(function (error) {
           // An error happened.
-        });
-      e.preventDefault();
+          console.log(error)
+        })
+      e.preventDefault()
     }
   }
-};
+}
 </script>

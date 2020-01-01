@@ -17,10 +17,7 @@ let router = new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home,
-      meta: {
-        requiresGuest: true
-      }
+      component: Home
     },
     {
       path: '/Navigation',
@@ -82,9 +79,9 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
   // Check for requiredAuth guard
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    //Check if NOT logged in
+    // Check if NOT logged in
     if (!firebase.auth().currentUser) {
-      //Go to login
+      // Go to login
       next({
         path: '/login',
         query: {
@@ -92,13 +89,14 @@ router.beforeEach((to, from, next) => {
         }
       })
     } else {
-      //Proceed to route
+      // Proceed to route
       next()
     }
+    // eslint-disable-next-line
   } else if (record => record.meta.requiresGuest) {
-    //Check if logged in
+    // Check if logged in
     if (firebase.auth().currentUser) {
-      //Go to login
+      // Go to login
       next({
         path: '/',
         query: {
@@ -106,11 +104,11 @@ router.beforeEach((to, from, next) => {
         }
       })
     } else {
-      //Proceed to route
+      // Proceed to route
       next()
     }
   } else {
-    //Proceed to route
+    // Proceed to route
     next()
   }
 })
