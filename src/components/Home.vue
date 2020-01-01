@@ -3,7 +3,7 @@
     <app-navigation></app-navigation>
     <div class="showcaseDiv">
       <h2>The trivia game where millennials go head to head with baby boomers</h2>
-      <p>Players answer ten millennial questions and ten boomer questions to see which side will win!</p>
+      <p>Players answer ten questions to see which side will win!</p>
     </div>
     <div class="homeImages">
       <h2 class="chooseH2">Choose Your Side</h2>
