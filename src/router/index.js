@@ -17,7 +17,10 @@ let router = new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,
+      meta: {
+        requiresGuest: true
+      }
     },
     {
       path: '/Navigation',
@@ -53,7 +56,7 @@ let router = new Router({
       name: 'Millennial',
       component: Millennial,
       meta: {
-        requiresGuest: true
+        requiresAuth: true
       }
     },
     {
@@ -61,7 +64,7 @@ let router = new Router({
       name: 'Boomer',
       component: Boomer,
       meta: {
-        requiresGuest: true
+        requiresAuth: true
       }
     },
     {
@@ -98,7 +101,7 @@ router.beforeEach((to, from, next) => {
     if (firebase.auth().currentUser) {
       // Go to login
       next({
-        path: '/',
+        path: '/Millennial',
         query: {
           redirect: to.fullPath
         }

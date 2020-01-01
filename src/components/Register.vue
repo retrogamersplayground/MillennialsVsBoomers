@@ -1,5 +1,6 @@
 <template>
   <div>
+    <app-navigation></app-navigation>
     <div class="container">
       <div class="">
         <div class="">
@@ -24,6 +25,7 @@
 </template>
 
 <script>
+import Navigation from './Navigation.vue'
 import firebase from 'firebase'
 export default {
   name: 'register',
@@ -32,6 +34,9 @@ export default {
       email: '',
       password: ''
     }
+  },
+  components: {
+    'app-navigation': Navigation
   },
   methods: {
     register: function (e) {
@@ -52,3 +57,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.welcomeDiv {
+  background-color: #E38120;
+  color: white;
+}
+</style>
