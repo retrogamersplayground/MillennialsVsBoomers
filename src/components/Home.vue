@@ -8,13 +8,13 @@
     <div class="homeImages">
       <h2 class="chooseH2">Choose Your Side</h2>
       <div class="homeImage">
-        <router-link to="/millennial">
+        <router-link to="/register">
           <img src="@/assets/millennial.png" alt="millennial" />
           <h2 class="millennialFont">Millennial</h2>
         </router-link>
       </div>
       <div class="homeImage">
-        <router-link to="/boomer">
+        <router-link to="/register">
           <img src="@/assets/boomer.png" alt="boomer" />
           <h2 class="boomerFont">BOOMER</h2>
         </router-link>
