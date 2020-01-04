@@ -15,11 +15,11 @@ Vue.use(Router)
 let router = new Router({
   routes: [
     {
-      path: '/',
+      path: '/Home',
       name: 'Home',
       component: Home,
       meta: {
-        requiresGuest: true
+        requiresAuth: true
       }
     },
     {
@@ -28,7 +28,7 @@ let router = new Router({
       component: Navigation
     },
     {
-      path: '/login',
+      path: '/',
       name: 'login',
       component: Login,
       meta: {
@@ -52,7 +52,7 @@ let router = new Router({
       }
     },
     {
-      path: '/Millennial',
+      path: '/Millennial/:teamId',
       name: 'Millennial',
       component: Millennial,
       meta: {
@@ -60,7 +60,7 @@ let router = new Router({
       }
     },
     {
-      path: '/Boomer',
+      path: '/Boomer/:teamId2',
       name: 'Boomer',
       component: Boomer,
       meta: {
@@ -101,7 +101,7 @@ router.beforeEach((to, from, next) => {
     if (firebase.auth().currentUser) {
       // Go to login
       next({
-        path: '/Millennial',
+        path: '/Home',
         query: {
           redirect: to.fullPath
         }

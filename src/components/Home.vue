@@ -8,16 +8,26 @@
     <div class="homeImages">
       <h2 class="chooseH2">Choose Your Side</h2>
       <div class="homeImage">
-        <router-link to="/register">
-          <img src="@/assets/millennial.png" alt="millennial" />
-          <h2 class="millennialFont">Millennial</h2>
-        </router-link>
+        <form @submit.prevent="chooseTeamMillennials">
+          <input disabled type="hidden" v-model="teamId" id="teamId" required />
+          <button type="submit">
+            <div>
+              <img src="@/assets/millennial.png" alt="millennial" />
+              <h2 class="millennialFont">Millennial</h2>
+            </div>
+          </button>
+        </form>
       </div>
       <div class="homeImage">
-        <router-link to="/register">
-          <img src="@/assets/boomer.png" alt="boomer" />
-          <h2 class="boomerFont">BOOMER</h2>
-        </router-link>
+        <form @submit.prevent="chooseTeamBoomers">
+          <input disabled type="hidden" v-model="teamId2" id="teamId2" required />
+          <button type="submit">
+            <div>
+              <img src="@/assets/boomer.png" alt="boomer" />
+              <h2 class="boomerFont">BOOMER</h2>
+            </div>
+          </button>
+        </form>
       </div>
     </div>
   </div>
@@ -25,11 +35,53 @@
 
 <script>
 import Navigation from './Navigation.vue'
+import firebase from 'firebase'
+import db from './firebaseInit'
 export default {
   name: 'Home',
   data () {
     return {
+      user: firebase.auth().currentUser,
+      uid: null,
+      teamId: null,
+      teamId2: null
     }
+  },
+  methods: {
+    chooseTeamMillennials () {
+      console.log('test')
+      db.collection('millennials')
+        .add({
+          teamId: this.teamId
+        })
+        .then(() => {this.$router.push({
+          name: 'Millennial',
+          params: {teamId: this.teamId}
+        })})
+        // eslint-disable-next-line
+        .catch(error => console.log(err))
+      console.log(this.teamId)
+    },
+    chooseTeamBoomers () {
+      console.log('test2')
+      db.collection('boomers')
+        .add({
+          teamId2: this.teamId2
+        })
+        .then(() => {this.$router.push({
+          name: 'Boomer',
+          params: {teamId2: this.teamId2}
+        })})
+        // eslint-disable-next-line
+        .catch(error => console.log(err))
+    }
+  },
+  created () {
+     if (this.user != null) {
+        this.uid = this.user.uid
+        this.teamId = 'millennial_' + this.uid
+        this.teamId2 = 'boomer_' + this.uid
+      }
   },
   components: {
     'app-navigation': Navigation
@@ -68,9 +120,13 @@ export default {
   padding-bottom: 20px;
 }
 .homeImage img {
-  width: 70%;
+  width: 80%;
 }
 .homeButton {
   text-align: right;
+}
+button {
+  background-color: #388e3c;
+  border: none;
 }
 </style>

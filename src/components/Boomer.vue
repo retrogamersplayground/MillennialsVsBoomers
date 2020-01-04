@@ -9,7 +9,7 @@
       <div class="boomerImage">
           <img src="@/assets/boomer.png" alt="boomer" />
       </div>
-      <button>Play</button>
+      <router-link to="/Game"><button>Play</button></router-link>
     </div>
   </div>
 </template>

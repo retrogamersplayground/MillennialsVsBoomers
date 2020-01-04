@@ -1,3 +1,4 @@
+'boomer _' + Math.round(new Date().getTime() / 1000)
 <template>
   <div class="game">
     <app-navigation></app-navigation>

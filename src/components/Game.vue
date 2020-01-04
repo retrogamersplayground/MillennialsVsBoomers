@@ -4,11 +4,6 @@
     <div class="showcaseDiv">
       <h2>Let's Play!</h2>
     </div>
-    <div class="gameImages">
-      <h2 class="millennialFont">Millennial</h2>
-      <div class="gameImage">
-        <img src="@/assets/millennial.png" alt="millennial" />
-      </div>
       <div class="gameDiv">
         <div class="gameCount">Question: {{ gameCount }}</div>
         <div class="score">Score: {{ score }}</div>
