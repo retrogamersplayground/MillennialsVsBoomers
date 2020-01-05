@@ -68,7 +68,7 @@ let router = new Router({
       }
     },
     {
-      path: '/Game',
+      path: '/Game/:lobbyId',
       name: 'Game',
       component: Game,
       meta: {

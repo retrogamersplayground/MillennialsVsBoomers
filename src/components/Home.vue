@@ -49,7 +49,6 @@ export default {
   },
   methods: {
     chooseTeamMillennials () {
-      console.log('test')
       db.collection('millennials')
         .add({
           teamId: this.teamId
@@ -63,7 +62,6 @@ export default {
       console.log(this.teamId)
     },
     chooseTeamBoomers () {
-      console.log('test2')
       db.collection('boomers')
         .add({
           teamId2: this.teamId2

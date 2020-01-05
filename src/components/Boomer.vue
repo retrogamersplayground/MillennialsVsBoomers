@@ -9,18 +9,51 @@
       <div class="boomerImage">
           <img src="@/assets/boomer.png" alt="boomer" />
       </div>
-      <router-link to="/Game"><button>Play</button></router-link>
+      <form @submit.prevent="addLobbyId">
+        <input disabled type="hidden" v-model="lobbyId" id="lobbyId" required />
+        <button type="submit">Play</button>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
 import Navigation from './Navigation.vue'
+import firebase from 'firebase'
+import db from './firebaseInit'
 export default {
   name: 'Boomer',
   data () {
     return {
+      user: firebase.auth().currentUser,
+      uid: null,
+      teamId2: null,
+      lobbyId: null
     }
+  },
+    methods: {
+      addLobbyId () {
+        if (this.user != null) {
+          db.collection('boomers')
+            .add({
+              lobbyId: this.lobbyId
+            })
+            .then(() => {this.$router.push({
+              name: 'Game',
+              params: {lobbyId: this.lobbyId}
+            })})
+            // eslint-disable-next-line
+            .catch(error => console.log(err))
+      }
+    }
+  },
+  created () {
+     if (this.user != null) {
+        this.uid = this.user.uid
+        this.teamId2 = this.$route.params.teamId2
+        this.lobbyId = this.teamId2 + '_' + + Math.round(new Date().getTime() / 1000)
+        console.log(this.lobbyId)
+      }
   },
   components: {
     'app-navigation': Navigation
