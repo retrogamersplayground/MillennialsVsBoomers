@@ -52,7 +52,6 @@ export default {
         this.uid = this.user.uid
         this.teamId = this.$route.params.teamId
         this.lobbyId = this.teamId + '_' + + Math.round(new Date().getTime() / 1000)
-        console.log(this.lobbyId)
       }
   },
   components: {

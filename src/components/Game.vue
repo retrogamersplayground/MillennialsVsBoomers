@@ -7,7 +7,7 @@
       <div class="gameDiv">
         <div class="gameCount">Question: {{ gameCount }}</div>
         <div class="score">Score: {{ score }}</div>
-        <ul v-if="!gameOver">
+        <ul v-if="playerOne === true && playerTwo === true && !gameOver">
           <li v-html="currentQuestionText">{{ currentQuestionText }}</li>
             <li
               v-html="answer"
@@ -18,6 +18,9 @@
             >
               {{ answer }}
             </li>
+        </ul>
+        <ul v-if="playerOne !== true || playerTwo !== true && !gameOver">
+          <li><p>Waiting for the other player...</p></li>
         </ul>
         <ul v-if="gameOver">
           <img src="@/assets/temgtriggered.gif" alt="triggered Canadian">
@@ -32,6 +35,8 @@
 import axios from 'axios'
 
 import Navigation from './Navigation.vue'
+import firebase from 'firebase'
+import db from './firebaseInit'
 
 export default {
   data () {
@@ -44,7 +49,29 @@ export default {
       gameCount: 1,
       answerArray: [],
       shuffledAnswers: [],
-      gameOver: false
+      gameOver: false,      
+      user: firebase.auth().currentUser,
+      uid: null,
+      teamId: null,
+      teamId2: null,
+      lobbyId: null,
+      playerArray: [],
+      type: '',
+      id: '',
+      time: '',
+      player: {},
+      playerOne: {
+        type: null,
+        id: null,
+        time: null
+      },
+      playerTwo: {
+        type: null,
+        id: null,
+        time: null
+      },
+      playerOneSet: false,
+      playerTwoSet: false
     }
   },
   async mounted () {
@@ -84,8 +111,6 @@ export default {
           ...this.questionBank,
           ...this.shuffledAnswers
         ]
-        console.log(this.questionBank)
-        console.log(this.question.correct_answer)
       } catch (err) {
         console.error(err)
       }
@@ -103,6 +128,36 @@ export default {
       } else {
         alert('GameOver')
         this.gameOver = true
+      }
+    }
+  },
+  created () {
+    if (this.user != null) {
+      this.uid = this.user.uid
+      this.lobbyId = this.$route.params.lobbyId
+      this.playerArray.push(this.lobbyId.split('_'))
+      this.type = this.playerArray[0][0]
+      this.id = this.playerArray[0][1]
+      this.time = this.playerArray[0][2]
+      this.player = {
+        type: this.type,
+        id: this.id,
+        time: this.time
+      }
+      if (this.player.type === 'millennial') {
+        this.playerOne.type = this.player.type
+        this.playerOne.id = this.player.id
+        this.playerOne.time = this.player.time
+        this.playerOneSet = true
+        console.log(this.playerOne.type)
+        console.log(this.playerOne.id)
+        console.log(this.playerOne.time)
+      } else if (this.player.type === 'boomer') {
+        this.playerTwo.type = this.player.type
+        this.playerTwo.type = this.player.id
+        this.playerTwo.time = this.player.time
+        this.playerTwoSet = true
+        console.log('player two ran')
       }
     }
   },

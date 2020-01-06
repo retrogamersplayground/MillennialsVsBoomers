@@ -59,7 +59,6 @@ export default {
         })})
         // eslint-disable-next-line
         .catch(error => console.log(err))
-      console.log(this.teamId)
     },
     chooseTeamBoomers () {
       db.collection('boomers')
