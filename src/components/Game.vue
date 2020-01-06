@@ -19,7 +19,7 @@
               {{ answer }}
             </li>
         </ul>
-        <ul v-if="playerOne !== true || playerTwo !== true && !gameOver">
+        <ul v-if="!game && !gameOver">
           <li><p>Waiting for the other player...</p></li>
         </ul>
         <ul v-if="gameOver">
@@ -71,11 +71,19 @@ export default {
         time: null
       },
       playerOneSet: false,
-      playerTwoSet: false
+      playerTwoSet: false,
+      playerOneId: null,
+      playerTwoId: null,
+      playerOneStatus: null,
+      playerTwoStatus: null,
+      game: false
     }
   },
   async mounted () {
     await this.getQuestion()
+  },
+  watch: {
+    $route: 'fetchData'
   },
   methods: {
     shuffle (array) {
@@ -129,6 +137,68 @@ export default {
         alert('GameOver')
         this.gameOver = true
       }
+    },
+    addData() {
+      if (this.playerOneSet) {
+        db.collection('status')
+          .add({
+            playerOneId: this.playerOne.type + this.playerOne.id,
+            playerOneStatus: 'waiting'
+          })
+      } else if (this.playerTwoSet) {
+        db.collection('status')
+          .add({
+            playerTwoId: this.playerTwo.type + this.playerTwo.id,
+            playerTwoStatus: 'waiting'
+          })
+      }
+    },
+    fetchData() {
+      db.collection('status')
+      .get()
+      .then(querySnapshot => {
+        this.playerOneId = doc.data().playerOneId
+        this.playerTwoId = doc.data().playerTwoId
+        this.playerOneStatus = doc.data().playerOneStatus
+        this.playerTwoStatus = doc.data().playerTwoStatus
+        })
+    },
+    updateData() {
+      while(this.playerTwoStatus === 'waiting') {
+        db.collection('status')
+        .where('playerOneStatus', '==', this.$route.params.playerOneStatus)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            doc.ref
+              .update({
+                playerOneStatus: 'inGame'
+              }) 
+              .add({
+                gameId: this.playerOneId + this.playerTwoId
+              })
+          })      
+        })
+      }
+      while(this.playerOneStatus === 'waiting') {
+        db.collection('status')
+        .where('playerTwoStatus', '==', this.$route.params.playerOneStatus)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            doc.ref
+              .update({
+                playerTwoStatus: 'inGame'
+              }) 
+              .add({
+                gameId: this.playerOneId + this.playerTwoId
+              })
+          })      
+        })
+      }
+      if (this.playerOne.status === 'inGame' || this.playerTwo.status === 'inGame') {
+        this.game = true
+      }
     }
   },
   created () {
@@ -155,9 +225,12 @@ export default {
         this.playerTwo.time = this.player.time
         this.playerTwoSet = true
       }
-      console.log(this.playerOneSet)
-      console.log(this.playerTwoSet)
     }
+  },
+  mounted () {
+    addData()
+    fetchData()
+    updateData()
   },
   components: {
     'app-navigation': Navigation
