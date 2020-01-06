@@ -149,15 +149,13 @@ export default {
         this.playerOne.id = this.player.id
         this.playerOne.time = this.player.time
         this.playerOneSet = true
-        console.log(this.playerOne.type)
-        console.log(this.playerOne.id)
-        console.log(this.playerOne.time)
+        console.log('player one set')
       } else if (this.player.type === 'boomer') {
         this.playerTwo.type = this.player.type
         this.playerTwo.type = this.player.id
         this.playerTwo.time = this.player.time
         this.playerTwoSet = true
-        console.log('player two ran')
+        console.log('player two set')
       }
     }
   },
