@@ -84,6 +84,7 @@ export default {
   },
   watch: {
     $route: 'fetchData'
+    $route: 'updateData'
   },
   methods: {
     shuffle (array) {
@@ -138,7 +139,7 @@ export default {
         this.gameOver = true
       }
     },
-    addData() {
+    addData () {
       if (this.playerOneSet) {
         db.collection('status')
           .add({
@@ -153,7 +154,7 @@ export default {
           })
       }
     },
-    fetchData() {
+    fetchData () {
       db.collection('status')
       .get()
       .then(querySnapshot => {
@@ -163,7 +164,7 @@ export default {
         this.playerTwoStatus = doc.data().playerTwoStatus
         })
     },
-    updateData() {
+    updateData () {
       while(this.playerTwoStatus === 'waiting') {
         db.collection('status')
         .where('playerOneStatus', '==', this.$route.params.playerOneStatus)
