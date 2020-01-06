@@ -149,13 +149,13 @@ export default {
         this.playerOne.id = this.player.id
         this.playerOne.time = this.player.time
         this.playerOneSet = true
-        console.log('player one set')
+        console.log(this.playerOneSet)
       } else if (this.player.type === 'boomer') {
         this.playerTwo.type = this.player.type
         this.playerTwo.type = this.player.id
         this.playerTwo.time = this.player.time
         this.playerTwoSet = true
-        console.log('player two set')
+        console.log(this.playerTwoSet)
       }
     }
   },
