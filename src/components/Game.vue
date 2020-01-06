@@ -33,11 +33,9 @@
 
 <script>
 import axios from 'axios'
-
 import Navigation from './Navigation.vue'
 import firebase from 'firebase'
 import db from './firebaseInit'
-
 export default {
   data () {
     return {
@@ -71,87 +69,13 @@ export default {
         time: null
       },
       playerOneSet: false,
-      playerTwoSet: false,
-      playerOneId: null,
-      playerTwoId: null,
-      playerOneStatus: null,
-      playerTwoStatus: null,
-      game: false
+      playerTwoSet: false
     }
   },
   async mounted () {
     await this.getQuestion()
-    await this.addData()
-    await this.fetchData()
-    await this.updateData()
-  },
-  watch: {
-    $route: 'fetchData',
-    $route: 'updateData'
   },
   methods: {
-    async addData () {
-      if (this.playerOneSet) {
-        db.collection('status')
-          .add({
-            playerOneId: this.playerOne.type + this.playerOne.id,
-            playerOneStatus: 'waiting'
-          })
-      } else if (this.playerTwoSet) {
-        db.collection('status')
-          .add({
-            playerTwoId: this.playerTwo.type + this.playerTwo.id,
-            playerTwoStatus: 'waiting'
-          })
-      }
-    },
-    async fetchData () {
-      db.collection('status')
-      .get()
-      .then(querySnapshot => {
-        this.playerOneId = doc.data().playerOneId
-        this.playerTwoId = doc.data().playerTwoId
-        this.playerOneStatus = doc.data().playerOneStatus
-        this.playerTwoStatus = doc.data().playerTwoStatus
-        })
-    },
-    async updateData () {
-      while(this.playerTwoStatus === 'waiting') {
-        db.collection('status')
-        .where('playerOneStatus', '==', this.$route.params.playerOneStatus)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            doc.ref
-              .update({
-                playerOneStatus: 'inGame'
-              }) 
-              .add({
-                gameId: this.playerOneId + this.playerTwoId
-              })
-          })      
-        })
-      }
-      while(this.playerOneStatus === 'waiting') {
-        db.collection('status')
-        .where('playerTwoStatus', '==', this.$route.params.playerOneStatus)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            doc.ref
-              .update({
-                playerTwoStatus: 'inGame'
-              }) 
-              .add({
-                gameId: this.playerOneId + this.playerTwoId
-              })
-          })      
-        })
-      }
-      if (this.playerOne.status === 'inGame' || this.playerTwo.status === 'inGame') {
-        this.game = true
-      }
-    },
     shuffle (array) {
       // eslint-disable-next-line
       var currentIndex = array.length, temporaryValue, randomIndex
@@ -166,7 +90,6 @@ export default {
     },
     async getQuestion () {
       this.questionBank = []
-
       try {
         const res = await axios.get(
           'https://opentdb.com/api.php?amount=1&type=multiple'
@@ -229,16 +152,16 @@ export default {
         this.playerTwo.time = this.player.time
         this.playerTwoSet = true
       }
+      console.log(this.playerOneSet)
+      console.log(this.playerTwoSet)
     }
-  },
-  mounted () {
-    
   },
   components: {
     'app-navigation': Navigation
   }
 }
 </script>
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .game {
