@@ -81,12 +81,77 @@ export default {
   },
   async mounted () {
     await this.getQuestion()
+    await this.addData()
+    await this.fetchData()
+    await this.updateData()
   },
   watch: {
-    $route: 'fetchData'
+    $route: 'fetchData',
     $route: 'updateData'
   },
   methods: {
+    async addData () {
+      if (this.playerOneSet) {
+        db.collection('status')
+          .add({
+            playerOneId: this.playerOne.type + this.playerOne.id,
+            playerOneStatus: 'waiting'
+          })
+      } else if (this.playerTwoSet) {
+        db.collection('status')
+          .add({
+            playerTwoId: this.playerTwo.type + this.playerTwo.id,
+            playerTwoStatus: 'waiting'
+          })
+      }
+    },
+    async fetchData () {
+      db.collection('status')
+      .get()
+      .then(querySnapshot => {
+        this.playerOneId = doc.data().playerOneId
+        this.playerTwoId = doc.data().playerTwoId
+        this.playerOneStatus = doc.data().playerOneStatus
+        this.playerTwoStatus = doc.data().playerTwoStatus
+        })
+    },
+    async updateData () {
+      while(this.playerTwoStatus === 'waiting') {
+        db.collection('status')
+        .where('playerOneStatus', '==', this.$route.params.playerOneStatus)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            doc.ref
+              .update({
+                playerOneStatus: 'inGame'
+              }) 
+              .add({
+                gameId: this.playerOneId + this.playerTwoId
+              })
+          })      
+        })
+      }
+      while(this.playerOneStatus === 'waiting') {
+        db.collection('status')
+        .where('playerTwoStatus', '==', this.$route.params.playerOneStatus)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            doc.ref
+              .update({
+                playerTwoStatus: 'inGame'
+              }) 
+              .add({
+                gameId: this.playerOneId + this.playerTwoId
+              })
+          })      
+        })
+      }
+      if (this.playerOne.status === 'inGame' || this.playerTwo.status === 'inGame') {
+        this.game = true
+      }
+    },
     shuffle (array) {
       // eslint-disable-next-line
       var currentIndex = array.length, temporaryValue, randomIndex
@@ -138,68 +203,6 @@ export default {
         alert('GameOver')
         this.gameOver = true
       }
-    },
-    addData () {
-      if (this.playerOneSet) {
-        db.collection('status')
-          .add({
-            playerOneId: this.playerOne.type + this.playerOne.id,
-            playerOneStatus: 'waiting'
-          })
-      } else if (this.playerTwoSet) {
-        db.collection('status')
-          .add({
-            playerTwoId: this.playerTwo.type + this.playerTwo.id,
-            playerTwoStatus: 'waiting'
-          })
-      }
-    },
-    fetchData () {
-      db.collection('status')
-      .get()
-      .then(querySnapshot => {
-        this.playerOneId = doc.data().playerOneId
-        this.playerTwoId = doc.data().playerTwoId
-        this.playerOneStatus = doc.data().playerOneStatus
-        this.playerTwoStatus = doc.data().playerTwoStatus
-        })
-    },
-    updateData () {
-      while(this.playerTwoStatus === 'waiting') {
-        db.collection('status')
-        .where('playerOneStatus', '==', this.$route.params.playerOneStatus)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            doc.ref
-              .update({
-                playerOneStatus: 'inGame'
-              }) 
-              .add({
-                gameId: this.playerOneId + this.playerTwoId
-              })
-          })      
-        })
-      }
-      while(this.playerOneStatus === 'waiting') {
-        db.collection('status')
-        .where('playerTwoStatus', '==', this.$route.params.playerOneStatus)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            doc.ref
-              .update({
-                playerTwoStatus: 'inGame'
-              }) 
-              .add({
-                gameId: this.playerOneId + this.playerTwoId
-              })
-          })      
-        })
-      }
-      if (this.playerOne.status === 'inGame' || this.playerTwo.status === 'inGame') {
-        this.game = true
-      }
     }
   },
   created () {
@@ -229,9 +232,7 @@ export default {
     }
   },
   mounted () {
-    addData()
-    fetchData()
-    updateData()
+    
   },
   components: {
     'app-navigation': Navigation
