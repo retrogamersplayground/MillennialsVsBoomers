@@ -209,7 +209,7 @@ export default {
     this.interval = setInterval(() => location.reload(), 5000)
   },
   watch: {
-    game: clearInterval(this.interval)
+    game: clearInterval(interval)
   },
   components: {
     'app-navigation': Navigation
