@@ -123,15 +123,12 @@ export default {
       console.log('test2 ' + this.playerTwoStatus)
       })
     }
-    loadPage()
+    if (!this.game) {
+      setInterval(() => location.reload(), 5000)
+    }
     await this.getQuestion()
   },
   methods: {
-    loadPage () {
-      if (!this.game) {
-        setInterval(() => location.reload(), 5000)
-      }
-    },
     shuffle (array) {
       // eslint-disable-next-line
       var currentIndex = array.length, temporaryValue, randomIndex
@@ -217,7 +214,6 @@ export default {
   }
 }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .game {
