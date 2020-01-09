@@ -207,7 +207,7 @@ export default {
       console.log(this.playerTwoSet)
     }
     this.interval = setInterval(() => location.reload(), 5000)
-    if(game) {
+    if(this.game) {
       clearInterval(this.interval)
     }
   },
