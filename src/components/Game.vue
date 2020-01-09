@@ -124,7 +124,7 @@ export default {
       })
     }
     if (!this.game) {
-      setInterval(() => reload(), 5000)
+      setInterval(() => location.reload(), 5000)
     }
     await this.getQuestion()
   },
