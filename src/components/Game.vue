@@ -213,6 +213,9 @@ export default {
       console.log(this.playerTwoSet)
     }
   },
+  watch: {
+    game: clearInveral(this.interval())
+  },
   components: {
     'app-navigation': Navigation
   }
