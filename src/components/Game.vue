@@ -124,11 +124,15 @@ export default {
       })
     }
     if (!this.game) {
-      setInterval(() => location.reload(), 5000)
+      interval()
     }
     await this.getQuestion()
   },
   methods: {
+    interval () 
+    {
+      setInterval(() => location.reload(), 5000)
+    },
     shuffle (array) {
       // eslint-disable-next-line
       var currentIndex = array.length, temporaryValue, randomIndex
@@ -210,8 +214,8 @@ export default {
     }
   },
   watch: {
-    game: clearInterval()
-  }
+    game: clearInterval(interval())
+  },
   components: {
     'app-navigation': Navigation
   }
