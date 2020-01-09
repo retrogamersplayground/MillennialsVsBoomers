@@ -287,3 +287,9 @@ created () {
       this.getQuestion()
     }
   },
+
+
+    watch: {
+    playerOneStatus: clearInterval(this.handle),
+    playerTwoStatus: clearInterval(this.handle)
+  },

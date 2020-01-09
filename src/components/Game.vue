@@ -213,10 +213,6 @@ export default {
       console.log(this.playerTwoSet)
     }
   },
-  watch: {
-    playerOneStatus: clearInterval(this.handle),
-    playerTwoStatus: clearInterval(this.handle)
-  },
   components: {
     'app-navigation': Navigation
   }
