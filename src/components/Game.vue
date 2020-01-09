@@ -214,7 +214,7 @@ export default {
     }
   },
   watch: {
-    game: clearInveral(this.interval())
+    game: clearIntveral(this.interval())
   },
   components: {
     'app-navigation': Navigation
