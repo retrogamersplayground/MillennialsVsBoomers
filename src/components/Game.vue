@@ -124,9 +124,6 @@ export default {
       console.log('test2 ' + this.playerTwoStatus)
       })
     }
-    if (!this.game) {
-      this.interval()
-    }
     await this.getQuestion()
   },
   methods: {
