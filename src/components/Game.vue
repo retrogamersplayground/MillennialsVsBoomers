@@ -72,7 +72,6 @@ export default {
       playerOneOpponent: [],
       playerTwoOpponent: [],
       game: false,
-      handle: null
     }
   },
   async mounted () {
@@ -130,7 +129,7 @@ export default {
   methods: {
     loadPage () {
       if (!this.game) {
-        this.handle = setInterval(() => location.reload(), 5000)
+        setInterval(() => location.reload(), 5000)
       }
     },
     shuffle (array) {
