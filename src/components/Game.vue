@@ -207,9 +207,9 @@ export default {
       console.log(this.playerTwoSet)
     }
     this.interval = setInterval(() => location.reload(), 5000)
-  },
-  watch: {
-    game: clearInterval(interval)
+    if(game) {
+      clearInterval(this.interval)
+    }
   },
   components: {
     'app-navigation': Navigation
