@@ -203,3 +203,87 @@ export default {
   }
 }
 </script>
+
+
+<!--test 2 -->
+created () {
+    if (this.user != null) {
+      this.uid = this.user.uid
+      this.lobbyId = this.$route.params.lobbyId
+      this.playerArray.push(this.lobbyId.split('_'))
+      this.type = this.playerArray[0][0]
+      this.id = this.playerArray[0][1]
+      this.time = this.playerArray[0][2]
+      this.player = {
+        type: this.type,
+        id: this.id,
+        time: this.time
+      }
+      if (this.player.type === 'millennial') {
+        this.playerOne.type = this.player.type
+        this.playerOne.id = 'playerOne' + '_' + this.lobbyId
+        this.playerOne.time = this.player.time
+        this.playerOneSet = true
+      } else if (this.player.type === 'boomer') {
+        this.playerTwo.type = this.player.type
+        this.playerTwo.id = 'playerTwo' + '_' + this.lobbyId
+        this.playerTwo.time = this.player.time
+        this.playerTwoSet = true
+      }
+      console.log(this.playerOneSet)
+      console.log(this.playerTwoSet)
+    }
+  },
+  mounted () {
+    if(this.playerOneSet) {
+      db.collection('lobby')
+      .add({
+        playerOneId:
+        this.playerOne.id,
+        playerOneStatus: 'waiting'
+      })
+      this.playerOneStatus = 'waiting'
+      console.log(this.playerOne.id + ' ' + 'is' + ' ' + this.playerOneStatus )
+    }
+    if(this.playerTwoSet) {
+      db.collection('lobby')
+      .add({
+        playerTwoId:
+        this.playerTwo.id,
+        playerTwoStatus: 'waiting'
+      })
+      this.playerTwoStatus = 'waiting'
+      console.log(this.playerTwo.id + ' ' + 'is' + ' ' + this.playerTwoStatus )
+    }
+    if (this.playerOneStatus === 'waiting') {
+      db.collection('lobby')
+      .where('playerTwoStatus', '==', 'waiting')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.playerOneOpponent = doc.data().playerTwoId
+          this.playerOneStatus = 'inGame'
+          this.game = true
+        })
+      console.log('test ' + this.playerOneOpponent)
+      console.log('test2 ' + this.playerOneStatus)
+      })
+    }
+    if (this.playerTwoStatus === 'waiting') {
+      db.collection('lobby')
+      .where('playerOneStatus', '==', 'waiting')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.playerTwoOpponent = doc.data().playerOneId
+          this.playerTwoStatus = 'inGame'
+          this.game = true
+        })
+      console.log('test ' + this.playerTwoOpponent)
+      console.log('test2 ' + this.playerTwoStatus)
+      })
+    }
+    if (game) {
+      this.getQuestion()
+    }
+  },

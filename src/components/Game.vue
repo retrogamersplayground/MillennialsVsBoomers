@@ -7,7 +7,7 @@
       <div class="gameDiv">
         <div class="gameCount">Question: {{ gameCount }}</div>
         <div class="score">Score: {{ score }}</div>
-        <ul v-if="playerOne === true && playerTwo === true && !gameOver">
+        <ul v-if="game && !gameOver">
           <li v-html="currentQuestionText">{{ currentQuestionText }}</li>
             <li
               v-html="answer"
@@ -27,7 +27,6 @@
           <!--<video src="@/assets/triggered1.mp4" autoplay loop></video>-->
         </ul>
       </div>
-    </div>
   </div>
 </template>
 
@@ -69,10 +68,63 @@ export default {
         time: null
       },
       playerOneSet: false,
-      playerTwoSet: false
+      playerTwoSet: false,
+      playerOneStatus: null,
+      playerTwoStatus: null,
+      playerOneOpponent: [],
+      playerTwoOpponent: [],
+      game: false
     }
   },
   async mounted () {
+    if(this.playerOneSet) {
+      db.collection('lobby')
+      .add({
+        playerOneId:
+        this.playerOne.id,
+        playerOneStatus: 'waiting'
+      })
+      this.playerOneStatus = 'waiting'
+      console.log(this.playerOne.id + ' ' + 'is' + ' ' + this.playerOneStatus )
+    }
+    if(this.playerTwoSet) {
+      db.collection('lobby')
+      .add({
+        playerTwoId:
+        this.playerTwo.id,
+        playerTwoStatus: 'waiting'
+      })
+      this.playerTwoStatus = 'waiting'
+      console.log(this.playerTwo.id + ' ' + 'is' + ' ' + this.playerTwoStatus )
+    }
+    if (this.playerOneStatus === 'waiting') {
+      db.collection('lobby')
+      .where('playerTwoStatus', '==', 'waiting')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.playerOneOpponent = doc.data().playerTwoId
+          this.playerOneStatus = 'inGame'
+          this.game = true
+        })
+      console.log('test ' + this.playerOneOpponent)
+      console.log('test2 ' + this.playerOneStatus)
+      })
+    }
+    if (this.playerTwoStatus === 'waiting') {
+      db.collection('lobby')
+      .where('playerOneStatus', '==', 'waiting')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.playerTwoOpponent = doc.data().playerOneId
+          this.playerTwoStatus = 'inGame'
+          this.game = true
+        })
+      console.log('test ' + this.playerTwoOpponent)
+      console.log('test2 ' + this.playerTwoStatus)
+      })
+    }
     await this.getQuestion()
   },
   methods: {
@@ -102,14 +154,14 @@ export default {
           this.question.incorrect_answers[0],
           this.question.incorrect_answers[1],
           this.question.incorrect_answers[2]
-        ]
+        ] 
         this.shuffledAnswers = this.shuffle(this.answerArray)
         this.questionBank = [
           ...this.questionBank,
           ...this.shuffledAnswers
-        ]
+        ] 
       } catch (err) {
-        console.error(err)
+         console.error(err)
       }
     },
     async increaseScore (answer) {
@@ -143,12 +195,12 @@ export default {
       }
       if (this.player.type === 'millennial') {
         this.playerOne.type = this.player.type
-        this.playerOne.id = this.player.id
+        this.playerOne.id = 'playerOne' + '_' + this.lobbyId
         this.playerOne.time = this.player.time
         this.playerOneSet = true
       } else if (this.player.type === 'boomer') {
         this.playerTwo.type = this.player.type
-        this.playerTwo.type = this.player.id
+        this.playerTwo.id = 'playerTwo' + '_' + this.lobbyId
         this.playerTwo.time = this.player.time
         this.playerTwoSet = true
       }
