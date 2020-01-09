@@ -213,9 +213,6 @@ export default {
       console.log(this.playerTwoSet)
     }
   },
-  watch: {
-    game: clearInterval(this.interval())
-  },
   components: {
     'app-navigation': Navigation
   }
