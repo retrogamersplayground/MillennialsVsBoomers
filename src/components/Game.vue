@@ -123,7 +123,7 @@ export default {
       console.log('test2 ' + this.playerTwoStatus)
       })
     }
-    while (!this.game) {
+    if (!this.game) {
       setInterval(() => reload(), 5000)
     }
     await this.getQuestion()
