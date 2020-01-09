@@ -72,6 +72,7 @@ export default {
       playerOneOpponent: [],
       playerTwoOpponent: [],
       game: false,
+      interval: null
     }
   },
   async mounted () {
@@ -129,10 +130,6 @@ export default {
     await this.getQuestion()
   },
   methods: {
-    interval () 
-    {
-      setInterval(() => location.reload(), 5000)
-    },
     shuffle (array) {
       // eslint-disable-next-line
       var currentIndex = array.length, temporaryValue, randomIndex
@@ -212,6 +209,10 @@ export default {
       console.log(this.playerOneSet)
       console.log(this.playerTwoSet)
     }
+    this.interval = setInterval(() => location.reload(), 5000)
+  },
+  watch: {
+    game: clearInterval(this.interval)
   },
   components: {
     'app-navigation': Navigation
