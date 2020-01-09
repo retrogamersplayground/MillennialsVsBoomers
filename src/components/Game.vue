@@ -76,6 +76,7 @@ export default {
     }
   },
   async mounted () {
+    console.log(this.game)
     if(this.playerOneSet) {
       db.collection('lobby')
       .add({
