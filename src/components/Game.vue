@@ -71,7 +71,8 @@ export default {
       playerTwoStatus: null,
       playerOneOpponent: [],
       playerTwoOpponent: [],
-      game: false
+      game: false,
+      handle: null
     }
   },
   async mounted () {
@@ -123,12 +124,15 @@ export default {
       console.log('test2 ' + this.playerTwoStatus)
       })
     }
-    if (!this.game) {
-      setInterval(() => location.reload(), 5000)
-    }
+    loadPage()
     await this.getQuestion()
   },
   methods: {
+    loadPage () {
+      if (!this.game) {
+        this.handle = setInterval(() => location.reload(), 5000)
+      }
+    },
     shuffle (array) {
       // eslint-disable-next-line
       var currentIndex = array.length, temporaryValue, randomIndex
@@ -208,6 +212,9 @@ export default {
       console.log(this.playerOneSet)
       console.log(this.playerTwoSet)
     }
+  },
+  watch: {
+    playerOneStatus: clearInterval(this.handle)
   },
   components: {
     'app-navigation': Navigation
