@@ -49,8 +49,6 @@ export default {
       gameOver: false,      
       user: firebase.auth().currentUser,
       uid: null,
-      teamId: null,
-      teamId2: null,
       lobbyId: null,
       playerArray: [],
       type: '',
@@ -124,6 +122,9 @@ export default {
       console.log('test ' + this.playerTwoOpponent)
       console.log('test2 ' + this.playerTwoStatus)
       })
+    }
+    while (!game) {
+      setInterval(() => reload(), 5000)
     }
     await this.getQuestion()
   },
