@@ -124,7 +124,7 @@ export default {
       })
     }
     if (!this.game) {
-      interval()
+      this.interval()
     }
     await this.getQuestion()
   },
