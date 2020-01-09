@@ -124,7 +124,7 @@ export default {
       })
     }
     if (!this.game) {
-      this.interval()
+      interval()
     }
     await this.getQuestion()
   },
@@ -214,7 +214,7 @@ export default {
     }
   },
   watch: {
-    game: clearInterval(this.interval())
+    game: clearInterval(interval())
   },
   components: {
     'app-navigation': Navigation
