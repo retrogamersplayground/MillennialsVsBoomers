@@ -207,10 +207,11 @@ export default {
       console.log(this.playerOneSet)
       console.log(this.playerTwoSet)
     }
-    this.interval = setInterval(() => location.reload(), 5000)
-    if(this.playerOneStatus === 'inGame' || this.playerTwoStatus === 'inGame') {
-      clearInterval(this.interval)
-    }
+  this.interval = setInterval(() => {
+      if(this.playerOneStatus === 'inGame' || this.playerTwoStatus === 'inGame') {
+        clearInterval(this.interval)
+      }
+    }, 5000)
   },
   components: {
     'app-navigation': Navigation
