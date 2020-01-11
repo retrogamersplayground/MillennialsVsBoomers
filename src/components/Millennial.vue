@@ -7,7 +7,7 @@
     <div class="millennialImages">
       <h2 class="millennialFont">Millennial</h2>
       <div class="millennialImage">
-          <img src="@/assets/millennial.png" alt="millennial" />
+        <img src="@/assets/millennial.png" alt="millennial" />
       </div>
       <form @submit.prevent="addLobbyId">
         <input disabled type="hidden" v-model="lobbyId" id="lobbyId" required />
@@ -18,46 +18,49 @@
 </template>
 
 <script>
-import Navigation from './Navigation.vue'
-import firebase from 'firebase'
-import db from './firebaseInit'
+import Navigation from "./Navigation.vue";
+import firebase from "firebase";
+import db from "./firebaseInit";
 export default {
-  name: 'Millennial',
-  data () {
+  name: "Millennial",
+  data() {
     return {
       user: firebase.auth().currentUser,
       uid: null,
       teamId: null,
       lobbyId: null
-    }
+    };
   },
   methods: {
-    addLobbyId () {
+    addLobbyId() {
       if (this.user != null) {
-        db.collection('millennials')
+        db.collection("millennials")
           .add({
             lobbyId: this.lobbyId
           })
-          .then(() => {this.$router.push({
-            name: 'Game',
-            params: {lobbyId: this.lobbyId}
-          })})
+          .then(() => {
+            this.$router.push({
+              name: "Game",
+              params: { lobbyId: this.lobbyId }
+            });
+          })
           // eslint-disable-next-line
-          .catch(error => console.log(err))
+          .catch(error => console.log(err));
       }
     }
   },
-  created () {
-     if (this.user != null) {
-        this.uid = this.user.uid
-        this.teamId = this.$route.params.teamId
-        this.lobbyId = this.teamId + '_' + + Math.round(new Date().getTime() / 1000)
-      }
+  created() {
+    if (this.user != null) {
+      this.uid = this.user.uid;
+      this.teamId = this.$route.params.teamId;
+      this.lobbyId =
+        this.teamId + "_" + +Math.round(new Date().getTime() / 1000);
+    }
   },
   components: {
-    'app-navigation': Navigation
+    "app-navigation": Navigation
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -65,16 +68,16 @@ export default {
 .millennial {
   text-align: center;
 }
-.welcomeDiv {
+/* .welcomeDiv {
   background-color: #6775B6;
   color: white;
-}
-.showcaseDiv h2{
+} */
+.showcaseDiv h2 {
   margin-top: 50px;
 }
 .millennialImages {
   width: 100%;
-  background-color: #6775B6;
+  background-color: #6775b6;
   color: white;
 }
 .millennialImage {
@@ -97,7 +100,7 @@ button {
   border-radius: 6px;
 }
 button:hover {
-    background-color: #6775b6;
-    color: #ffffff;
+  background-color: #6775b6;
+  color: #ffffff;
 }
 </style>

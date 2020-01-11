@@ -1,82 +1,93 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from '@/components/Home'
-import Millennial from '@/components/Millennial'
-import Boomer from '@/components/Boomer'
-import Game from '@/components/Game'
-import Navigation from '@/components/Navigation'
-import Login from '@/components/Login'
-import Register from '@/components/Register'
-import ResetPassword from '@/components/ResetPassword'
-import firebase from 'firebase'
+import Vue from "vue";
+import Router from "vue-router";
+import App from "../App";
+// import Home from '@/components/Home'
+import Home from "@/mozzey/Home";
+// import Millennial from "@/components/Millennial";
+// import Boomer from "@/components/Boomer";
+import Player from "@/mozzey/Player";
+import Game from "@/components/Game";
+import Navigation from "@/components/Navigation";
+import Login from "@/components/Login";
+import Register from "@/components/Register";
+import ResetPassword from "@/components/ResetPassword";
+import firebase from "firebase";
 
-Vue.use(Router)
+Vue.use(Router);
 
 let router = new Router({
   routes: [
     {
-      path: '/Home',
-      name: 'Home',
+      path: "/Home",
+      name: "Home",
       component: Home,
       meta: {
         requiresAuth: true
       }
     },
     {
-      path: '/Navigation',
-      name: 'Navigation',
+      path: "/Navigation",
+      name: "Navigation",
       component: Navigation
     },
     {
-      path: '/',
-      name: 'login',
+      path: "/",
+      name: "login",
       component: Login,
       meta: {
         requiresGuest: true
       }
     },
     {
-      path: '/register',
-      name: 'register',
+      path: "/register",
+      name: "register",
       component: Register,
       meta: {
         requiresGuest: true
       }
     },
     {
-      path: '/reset',
-      name: 'reset',
+      path: "/reset",
+      name: "reset",
       component: ResetPassword,
       meta: {
         requiresGuest: true
       }
     },
     {
-      path: '/Millennial/:teamId',
-      name: 'Millennial',
-      component: Millennial,
+      path: "/:teamName/:teamId",
+      name: "Player",
+      component: Player,
       meta: {
         requiresAuth: true
       }
     },
+    // {
+    //   path: "/Millennial/:teamId",
+    //   name: "Millennial",
+    //   component: Millennial,
+    //   meta: {
+    //     requiresAuth: true
+    //   }
+    // },
+    // {
+    //   path: "/Boomer/:teamId2",
+    //   name: "Boomer",
+    //   component: Boomer,
+    //   meta: {
+    //     requiresAuth: true
+    //   }
+    // },
     {
-      path: '/Boomer/:teamId2',
-      name: 'Boomer',
-      component: Boomer,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/Game/:lobbyId',
-      name: 'Game',
+      path: "/Game/:lobbyId",
+      name: "Game",
       component: Game,
       meta: {
         requiresAuth: true
       }
     }
   ]
-})
+});
 
 // Nav Guards
 router.beforeEach((to, from, next) => {
@@ -86,14 +97,14 @@ router.beforeEach((to, from, next) => {
     if (!firebase.auth().currentUser) {
       // Go to login
       next({
-        path: '/login',
+        path: "/login",
         query: {
           redirect: to.fullPath
         }
-      })
+      });
     } else {
       // Proceed to route
-      next()
+      next();
     }
     // eslint-disable-next-line
   } else if (record => record.meta.requiresGuest) {
@@ -101,18 +112,18 @@ router.beforeEach((to, from, next) => {
     if (firebase.auth().currentUser) {
       // Go to login
       next({
-        path: '/Home',
+        path: "/Home",
         query: {
           redirect: to.fullPath
         }
-      })
+      });
     } else {
       // Proceed to route
-      next()
+      next();
     }
   } else {
     // Proceed to route
-    next()
+    next();
   }
-})
-export default router
+});
+export default router;

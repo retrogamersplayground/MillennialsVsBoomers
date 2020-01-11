@@ -1,13 +1,19 @@
 <template>
   <div id="app">
-    <router-view/>
+    <app-navigation></app-navigation>
+    <router-view />
   </div>
 </template>
 
 <script>
+import Navigation from "./components/Navigation";
+
 export default {
-  name: 'App'
-}
+  name: "App",
+  components: {
+    "app-navigation": Navigation
+  }
+};
 </script>
 
 <style>
@@ -45,13 +51,13 @@ a {
 }
 /*End of reset*/
 body {
-  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-family: "Arial", "Helvetica", sans-serif;
 }
 .boomerFont {
-  font-family: 'Baskervville', serif;
+  font-family: "Baskervville", serif;
 }
 .millennialFont {
-  font-family: 'Monoton', cursive;
+  font-family: "Monoton", cursive;
 }
 a {
   color: #ffffff;
@@ -59,9 +65,7 @@ a {
 ul {
   list-style: none;
 }
-.welcomeDiv li{
-  display: inline-block;
-}
+
 .homeButton {
   float: right;
 }
