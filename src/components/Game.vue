@@ -23,7 +23,20 @@
       {{ answer }}
     </li>
   </template>
-  <template v-else-if="gameOver">
+  <template v-else-if="user && gameOver && playerOneStatus === 'winner'">
+    <h2>You Won!!!!!!</h2>
+    <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
+  </template>
+  <template v-else-if="user && gameOver && playerTwoStatus === 'winner'">
+    <h2>You Won!!!!!!</h2>
+    <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
+  </template>
+  <template v-else-if="user && gameOver && playerOneStatus !== 'winner'">
+    <h2>You lost :(</h2>
+    <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
+  </template>
+  <template v-else-if="user && gameOver && playerTwoStatus !== 'winner'">
+    <h2>You lost :(</h2>
     <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
   </template>
 </ul>
@@ -59,12 +72,14 @@ export default {
       playerOne: {
         type: null,
         id: null,
-        time: null
+        time: null,
+        score: 0
       },
       playerTwo: {
         type: null,
         id: null,
-        time: null
+        time: null,
+        score: 0
       },
       playerOneSet: false,
       playerTwoSet: false,
@@ -134,6 +149,16 @@ export default {
       console.log('test2 ' + this.playerTwoStatus)
       })
     }
+    if (this.gameOver) {
+      this.playerOneSet = false
+      this.playerTwoSet = false
+      this.game = false
+    }
+    if (this.gameOver && (this.playerOne.score > this.playerTwo.score)) {
+      this.playerOneStatus = 'winner'
+    } else if (this.gameOver && (this.playerTwo.score > this.playerOne.score)) {
+      this.playerTwoStatus = 'winner'
+    }
     await this.getQuestion()
   },
   methods: {
@@ -184,7 +209,8 @@ export default {
         this.gameCount += 1
         await this.getQuestion()
       } else {
-        alert('GameOver')
+        this.playerOne.score = this.score
+        this.playerTwo.score = this.score
         this.gameOver = true
       }
     }
