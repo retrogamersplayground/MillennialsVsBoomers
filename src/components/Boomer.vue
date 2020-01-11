@@ -7,7 +7,7 @@
     <div class="boomerImages">
       <h2 class="boomerFont">BOOMER</h2>
       <div class="boomerImage">
-          <img src="@/assets/boomer.png" alt="boomer" />
+        <img src="@/assets/boomer.png" alt="boomer" />
       </div>
       <form @submit.prevent="addLobbyId">
         <input disabled type="hidden" v-model="lobbyId" id="lobbyId" required />
@@ -23,7 +23,7 @@ import firebase from 'firebase'
 import db from './firebaseInit'
 export default {
   name: 'Boomer',
-  data () {
+  data() {
     return {
       user: firebase.auth().currentUser,
       uid: null,
@@ -31,28 +31,31 @@ export default {
       lobbyId: null
     }
   },
-    methods: {
-      addLobbyId () {
-        if (this.user != null) {
-          db.collection('boomers')
-            .add({
-              lobbyId: this.lobbyId
-            })
-            .then(() => {this.$router.push({
+  methods: {
+    addLobbyId() {
+      if (this.user != null) {
+        db.collection('boomers')
+          .add({
+            lobbyId: this.lobbyId
+          })
+          .then(() => {
+            this.$router.push({
               name: 'Game',
-              params: {lobbyId: this.lobbyId}
-            })})
-            // eslint-disable-next-line
-            .catch(error => console.log(err))
+              params: { lobbyId: this.lobbyId }
+            })
+          })
+          // eslint-disable-next-line
+          .catch(error => console.log(err))
       }
     }
   },
-  created () {
-     if (this.user != null) {
-        this.uid = this.user.uid
-        this.teamId2 = this.$route.params.teamId2
-        this.lobbyId = this.teamId2 + '_' + + Math.round(new Date().getTime() / 1000)
-      }
+  created() {
+    if (this.user != null) {
+      this.uid = this.user.uid
+      this.teamId2 = this.$route.params.teamId2
+      this.lobbyId =
+        this.teamId2 + '_' + +Math.round(new Date().getTime() / 1000)
+    }
   },
   components: {
     'app-navigation': Navigation
@@ -66,15 +69,15 @@ export default {
   text-align: center;
 }
 .welcomeDiv {
-  background-color: #E38120;
+  background-color: #e38120;
   color: white;
 }
-.showcaseDiv h2{
+.showcaseDiv h2 {
   margin-top: 50px;
 }
 .boomerImages {
   width: 100%;
-  background-color: #E38120;
+  background-color: #e38120;
   color: white;
 }
 .boomerImage {
@@ -96,13 +99,13 @@ button {
   display: block;
   padding: 20px 50px 20px;
   background-color: #ffffff;
-  color: #E38120;
+  color: #e38120;
   font-size: 24px;
   border: 2px solid #ffffff;
   border-radius: 6px;
 }
 button:hover {
-    background-color: #E38120;
-    color: #ffffff;
+  background-color: #e38120;
+  color: #ffffff;
 }
 </style>

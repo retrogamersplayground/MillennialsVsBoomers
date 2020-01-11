@@ -18,49 +18,49 @@
 </template>
 
 <script>
-import Navigation from "./Navigation.vue";
-import firebase from "firebase";
-import db from "./firebaseInit";
+import Navigation from './Navigation.vue'
+import firebase from 'firebase'
+import db from './firebaseInit'
 export default {
-  name: "Millennial",
+  name: 'Millennial',
   data() {
     return {
       user: firebase.auth().currentUser,
       uid: null,
       teamId: null,
       lobbyId: null
-    };
+    }
   },
   methods: {
     addLobbyId() {
       if (this.user != null) {
-        db.collection("millennials")
+        db.collection('millennials')
           .add({
             lobbyId: this.lobbyId
           })
           .then(() => {
             this.$router.push({
-              name: "Game",
+              name: 'Game',
               params: { lobbyId: this.lobbyId }
-            });
+            })
           })
           // eslint-disable-next-line
-          .catch(error => console.log(err));
+          .catch(error => console.log(err))
       }
     }
   },
   created() {
     if (this.user != null) {
-      this.uid = this.user.uid;
-      this.teamId = this.$route.params.teamId;
+      this.uid = this.user.uid
+      this.teamId = this.$route.params.teamId
       this.lobbyId =
-        this.teamId + "_" + +Math.round(new Date().getTime() / 1000);
+        this.teamId + '_' + +Math.round(new Date().getTime() / 1000)
     }
   },
   components: {
-    "app-navigation": Navigation
+    'app-navigation': Navigation
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -23,21 +23,21 @@
 import firebase from 'firebase'
 export default {
   name: 'reset',
-  data: function () {
+  data: function() {
     return {
       email: ''
     }
   },
   methods: {
-    reset: function (e) {
+    reset: function(e) {
       firebase
         .auth()
         .sendPasswordResetEmail(this.email)
-        .then(function () {
+        .then(function() {
           // Email sent.
           alert('Reset Password Email Sent')
         })
-        .catch(function (error) {
+        .catch(function(error) {
           // An error happened.
           console.log(error)
         })

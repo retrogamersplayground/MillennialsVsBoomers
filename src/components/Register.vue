@@ -2,7 +2,9 @@
   <div>
     <app-navigation></app-navigation>
     <div class="showcaseDiv">
-      <h2>The trivia game where millennials go head to head with baby boomers</h2>
+      <h2>
+        The trivia game where millennials go head to head with baby boomers
+      </h2>
       <p>Players answer ten questions to see which side will win!</p>
     </div>
     <div class="container">
@@ -33,7 +35,7 @@ import Navigation from './Navigation.vue'
 import firebase from 'firebase'
 export default {
   name: 'register',
-  data: function () {
+  data: function() {
     return {
       email: '',
       password: ''
@@ -43,7 +45,7 @@ export default {
     'app-navigation': Navigation
   },
   methods: {
-    register: function (e) {
+    register: function(e) {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
@@ -64,7 +66,7 @@ export default {
 
 <style scoped>
 .welcomeDiv {
-  background-color: #E38120;
+  background-color: #e38120;
   color: white;
 }
 </style>

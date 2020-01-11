@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import db from "../components/firebaseInit";
+import db from '../components/firebaseInit'
 
 export default {
   data() {
@@ -30,35 +30,33 @@ export default {
       team: this.$route.params.teamName,
       teamId: this.$route.params.teamId,
       user: this.$route.params.user
-    };
+    }
   },
   created() {
-    console.log(this.$route);
+    console.log(this.$route)
   },
   computed: {
     getImg() {
-      return require(`@/assets/${this.team
-        .toLowerCase()
-        .replace("s", "")}.png`);
+      return require(`@/assets/${this.team.toLowerCase().replace('s', '')}.png`)
     }
   },
   methods: {
     async addLobbyId() {
       const res = await db.collection(this.team).add({
         lobbyId: this.lobbyId
-      });
+      })
 
       this.$router.push({
-        name: "Game",
+        name: 'Game',
         params: {
           lobbyId: this.lobbyId,
-          playerType: "boomer",
+          playerType: 'boomer',
           teamName: this.team
         }
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <style scoped>

@@ -1,62 +1,62 @@
-import Vue from "vue";
-import Router from "vue-router";
-import App from "../App";
+import Vue from 'vue';
+import Router from 'vue-router';
+import App from '../App';
 // import Home from '@/components/Home'
-import Home from "@/mozzey/Home";
+import Home from '@/mozzey/Home';
 // import Millennial from "@/components/Millennial";
 // import Boomer from "@/components/Boomer";
-import Player from "@/mozzey/Player";
-import Game from "@/components/Game";
-import Navigation from "@/components/Navigation";
-import Login from "@/components/Login";
-import Register from "@/components/Register";
-import ResetPassword from "@/components/ResetPassword";
-import firebase from "firebase";
+import Player from '@/mozzey/Player';
+import Game from '@/components/Game';
+import Navigation from '@/components/Navigation';
+import Login from '@/components/Login';
+import Register from '@/components/Register';
+import ResetPassword from '@/components/ResetPassword';
+import firebase from 'firebase';
 
 Vue.use(Router);
 
 let router = new Router({
   routes: [
     {
-      path: "/Home",
-      name: "Home",
+      path: '/Home',
+      name: 'Home',
       component: Home,
       meta: {
         requiresAuth: true
       }
     },
     {
-      path: "/Navigation",
-      name: "Navigation",
+      path: '/Navigation',
+      name: 'Navigation',
       component: Navigation
     },
     {
-      path: "/",
-      name: "login",
+      path: '/',
+      name: 'login',
       component: Login,
       meta: {
         requiresGuest: true
       }
     },
     {
-      path: "/register",
-      name: "register",
+      path: '/register',
+      name: 'register',
       component: Register,
       meta: {
         requiresGuest: true
       }
     },
     {
-      path: "/reset",
-      name: "reset",
+      path: '/reset',
+      name: 'reset',
       component: ResetPassword,
       meta: {
         requiresGuest: true
       }
     },
     {
-      path: "/:teamName/:teamId",
-      name: "Player",
+      path: '/:teamName/:teamId',
+      name: 'Player',
       component: Player,
       meta: {
         requiresAuth: true
@@ -79,8 +79,8 @@ let router = new Router({
     //   }
     // },
     {
-      path: "/Game/:lobbyId",
-      name: "Game",
+      path: '/Game/:lobbyId',
+      name: 'Game',
       component: Game,
       meta: {
         requiresAuth: true
@@ -97,7 +97,7 @@ router.beforeEach((to, from, next) => {
     if (!firebase.auth().currentUser) {
       // Go to login
       next({
-        path: "/login",
+        path: '/login',
         query: {
           redirect: to.fullPath
         }
@@ -112,7 +112,7 @@ router.beforeEach((to, from, next) => {
     if (firebase.auth().currentUser) {
       // Go to login
       next({
-        path: "/Home",
+        path: '/Home',
         query: {
           redirect: to.fullPath
         }

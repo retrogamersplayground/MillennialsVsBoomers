@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import axios from "axios";
-import db from "../components/firebaseInit";
+import axios from 'axios'
+import db from '../components/firebaseInit'
 
-export default {};
+export default {}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

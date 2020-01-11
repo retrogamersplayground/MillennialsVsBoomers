@@ -42,60 +42,60 @@
 </template>
 
 <script>
-import Navigation from "./Navigation.vue";
-import firebase from "firebase";
-import db from "./firebaseInit";
+import Navigation from './Navigation.vue'
+import firebase from 'firebase'
+import db from './firebaseInit'
 export default {
-  name: "Home",
+  name: 'Home',
   data() {
     return {
       user: firebase.auth().currentUser,
       uid: null,
       teamId: null,
       teamId2: null
-    };
+    }
   },
   methods: {
     chooseTeamMillennials() {
-      db.collection("millennials")
+      db.collection('millennials')
         .add({
           teamId: this.teamId
         })
         .then(() => {
           this.$router.push({
-            name: "Millennial",
+            name: 'Millennial',
             params: { teamId: this.teamId }
-          });
+          })
         })
         // eslint-disable-next-line
-        .catch(error => console.log(err));
+        .catch(error => console.log(err))
     },
     chooseTeamBoomers() {
-      db.collection("boomers")
+      db.collection('boomers')
         .add({
           teamId2: this.teamId2
         })
         .then(() => {
           this.$router.push({
-            name: "Boomer",
+            name: 'Boomer',
             params: { teamId2: this.teamId2 }
-          });
+          })
         })
         // eslint-disable-next-line
-        .catch(error => console.log(err));
+        .catch(error => console.log(err))
     }
   },
   created() {
     if (this.user != null) {
-      this.uid = this.user.uid;
-      this.teamId = "millennial_" + this.uid;
-      this.teamId2 = "boomer_" + this.uid;
+      this.uid = this.user.uid
+      this.teamId = 'millennial_' + this.uid
+      this.teamId2 = 'boomer_' + this.uid
     }
   },
   components: {
-    "app-navigation": Navigation
+    'app-navigation': Navigation
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

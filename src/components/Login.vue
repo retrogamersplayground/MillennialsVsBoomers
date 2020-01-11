@@ -2,7 +2,9 @@
   <div>
     <app-navigation></app-navigation>
     <div class="showcaseDiv">
-      <h2>The trivia game where millennials go head to head with baby boomers</h2>
+      <h2>
+        The trivia game where millennials go head to head with baby boomers
+      </h2>
       <p>Players answer ten questions to see which side will win!</p>
     </div>
     <div class="container">
@@ -22,7 +24,9 @@
               <button v-on:click="login" class="">Login</button>
             </form>
             <router-link to="/register" tag="h6">Sign Up</router-link>
-            <router-link to="/reset" tag="h6">Forgot Your Password?</router-link>
+            <router-link to="/reset" tag="h6"
+              >Forgot Your Password?</router-link
+            >
           </div>
         </div>
       </div>
@@ -34,14 +38,14 @@
 import firebase from 'firebase'
 export default {
   name: 'login',
-  data: function () {
+  data: function() {
     return {
       email: '',
       password: ''
     }
   },
   methods: {
-    login: function (e) {
+    login: function(e) {
       firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)

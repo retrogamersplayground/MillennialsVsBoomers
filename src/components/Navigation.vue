@@ -18,15 +18,15 @@
 
 <script>
 export default {
-  name: "Navigation",
+  name: 'Navigation',
   computed: {
     getPlayerType() {
-      if (this.$route.name === "Player" || this.$route.name === "Game") {
-        return `${this.$route.params.teamName.toLowerCase()}-bg`;
+      if (this.$route.name === 'Player' || this.$route.name === 'Game') {
+        return `${this.$route.params.teamName.toLowerCase()}-bg`
       }
     }
   }
-};
+}
 </script>
 
 <style scoped>

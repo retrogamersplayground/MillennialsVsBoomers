@@ -14,23 +14,21 @@
 
 <script>
 export default {
-  name: "TeamCard",
-  props: ["team", "teamId", "pickTeam"],
+  name: 'TeamCard',
+  props: ['team', 'teamId', 'pickTeam'],
   data() {
     // console.log(this.team.toLowerCase().replace("s", ""));
     return {
-      imageSrc: `../assets/${this.team.toLowerCase().replace("s", "")}.png`,
-      fontClass: `${this.team.toLowerCase().replace("s", "")}Font`
-    };
+      imageSrc: `../assets/${this.team.toLowerCase().replace('s', '')}.png`,
+      fontClass: `${this.team.toLowerCase().replace('s', '')}Font`
+    }
   },
   computed: {
     getImg() {
-      return require(`@/assets/${this.team
-        .toLowerCase()
-        .replace("s", "")}.png`);
+      return require(`@/assets/${this.team.toLowerCase().replace('s', '')}.png`)
     }
   }
-};
+}
 </script>
 
 <style>

@@ -15,41 +15,41 @@
 </template>
 
 <script>
-import TeamCard from "./TeamCard";
-import firebase from "firebase";
-import db from "../components/firebaseInit";
+import TeamCard from './TeamCard'
+import firebase from 'firebase'
+import db from '../components/firebaseInit'
 
 export default {
   components: {
-    "app-team-card": TeamCard
+    'app-team-card': TeamCard
   },
   data() {
     return {
       user: firebase.auth().currentUser,
       uid: null,
       teamId: null
-    };
+    }
   },
   methods: {
-    async pickTeam(team = "") {
+    async pickTeam(team = '') {
       try {
-        const res = await db.collection(team).add({ teamId: this.teamId });
+        const res = await db.collection(team).add({ teamId: this.teamId })
         // const name = team.toLowerCase().replace("s", "");
 
         this.$router.push({
-          name: "Player",
+          name: 'Player',
           params: {
             user: this.user,
-            teamName: team.replace("s", ""),
+            teamName: team.replace('s', ''),
             teamId: this.teamId
           }
-        });
+        })
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

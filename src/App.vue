@@ -6,12 +6,12 @@
 </template>
 
 <script>
-import Navigation from "./components/Navigation";
+import Navigation from './components/Navigation';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    "app-navigation": Navigation
+    'app-navigation': Navigation
   }
 };
 </script>
@@ -51,13 +51,13 @@ a {
 }
 /*End of reset*/
 body {
-  font-family: "Arial", "Helvetica", sans-serif;
+  font-family: 'Arial', 'Helvetica', sans-serif;
 }
 .boomerFont {
-  font-family: "Baskervville", serif;
+  font-family: 'Baskervville', serif;
 }
 .millennialFont {
-  font-family: "Monoton", cursive;
+  font-family: 'Monoton', cursive;
 }
 a {
   color: #ffffff;
