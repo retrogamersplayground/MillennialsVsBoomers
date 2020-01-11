@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import Navigation from "../components/Navigation.vue";
 import db from "../components/firebaseInit";
 
 export default {
@@ -32,9 +31,6 @@ export default {
       teamId: this.$route.params.teamId,
       user: this.$route.params.user
     };
-  },
-  components: {
-    "app-navigation": Navigation
   },
   created() {
     console.log(this.$route);

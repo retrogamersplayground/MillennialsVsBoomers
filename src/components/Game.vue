@@ -32,7 +32,6 @@
 
 <script>
 import axios from "axios";
-import Navigation from "./Navigation.vue";
 import firebase from "firebase";
 import db from "./firebaseInit";
 
@@ -213,9 +212,6 @@ export default {
     //     location.reload();
     //   }
     // }, 5000);
-  },
-  components: {
-    "app-navigation": Navigation
   }
 };
 </script>

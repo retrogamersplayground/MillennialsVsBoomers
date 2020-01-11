@@ -33,7 +33,6 @@
 
 <script>
 import axios from "axios";
-import Navigation from "../components/Navigation.vue";
 import db from "../components/firebaseInit";
 
 export default {};

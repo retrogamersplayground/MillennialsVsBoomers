@@ -15,14 +15,12 @@
 </template>
 
 <script>
-import Navigation from "../components/Navigation.vue";
 import TeamCard from "./TeamCard";
 import firebase from "firebase";
 import db from "../components/firebaseInit";
 
 export default {
   components: {
-    "app-navigation": Navigation,
     "app-team-card": TeamCard
   },
   data() {
