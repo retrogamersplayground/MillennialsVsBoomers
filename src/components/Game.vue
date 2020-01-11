@@ -7,25 +7,26 @@
       <div class="gameDiv">
         <div class="gameCount">Question: {{ gameCount }}</div>
         <div class="score">Score: {{ score }}</div>
-        <ul v-if="game && !gameOver">
-          <li v-html="currentQuestionText">{{ currentQuestionText }}</li>
-            <li
-              v-html="answer"
-              v-for="(answer, index) in questionBank"
-              class="answerButton"
-              :key="index"
-              @click="increaseScore(answer)"
-            >
-              {{ answer }}
-            </li>
-        </ul>
-        <ul v-if="!game && !gameOver">
-          <li><p>Waiting for the other player...</p></li>
-        </ul>
-        <ul v-if="gameOver">
-          <img src="@/assets/temgtriggered.gif" alt="triggered Canadian">
-          <!--<video src="@/assets/triggered1.mp4" autoplay loop></video>-->
-        </ul>
+      <ul>
+  <template v-if="!game && !gameOver">
+    <li><p>Waiting for the other player...</p></li>
+  </template>
+  <template v-else-if="game && !gameOver">
+    <li v-html="currentQuestionText">{{ currentQuestionText }}</li>
+    <li
+      v-html="answer"
+      v-for="(answer, index) in questionBank"
+      class="answerButton"
+      :key="index"
+      @click="increaseScore(answer)"
+    >
+      {{ answer }}
+    </li>
+  </template>
+  <template v-else-if="gameOver">
+    <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
+  </template>
+</ul>
       </div>
   </div>
 </template>
@@ -207,11 +208,6 @@ export default {
       console.log(this.playerOneSet)
       console.log(this.playerTwoSet)
     }
-  this.interval = setInterval(() => {
-      if(this.playerOneStatus === 'inGame' || this.playerTwoStatus === 'inGame') {
-        clearInterval(this.interval)
-      }
-    }, 5000)
   },
   components: {
     'app-navigation': Navigation

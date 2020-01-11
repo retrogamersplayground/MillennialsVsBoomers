@@ -293,3 +293,8 @@ created () {
     playerOneStatus: clearInterval(this.handle),
     playerTwoStatus: clearInterval(this.handle)
   },
+  this.interval = setInterval(() => {
+      if(this.playerOneStatus === 'inGame' || this.playerTwoStatus === 'inGame') {
+        clearInterval(this.interval)
+      }
+    }, 5000)
