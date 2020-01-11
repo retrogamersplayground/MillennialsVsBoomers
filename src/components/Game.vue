@@ -111,6 +111,14 @@ export default {
       console.log('test ' + this.playerOneOpponent)
       console.log('test2 ' + this.playerOneStatus)
       })
+      this.interval = setInterval(() => {
+        if(this.playerOneStatus === 'waiting' || this.playerTwoStatus === 'waiting') {
+          location.reload()
+        }
+        else if(this.playerOneStatus === 'inGame' || this.playerTwoStatus === 'inGame') {
+          clearInterval(this.interval)
+        }
+      }, 5000)
     }
     if (this.playerTwoStatus === 'waiting') {
       db.collection('lobby')
