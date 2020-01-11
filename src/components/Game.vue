@@ -113,7 +113,7 @@ export default {
       })
       this.interval = setInterval(() => {
         if(this.playerOneStatus === 'waiting' || this.playerTwoStatus === 'waiting') {
-          location.reload()
+          window.location.reload(true)
         }
         else if(this.playerOneStatus === 'inGame' || this.playerTwoStatus === 'inGame') {
           clearInterval(this.interval)
