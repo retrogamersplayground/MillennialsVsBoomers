@@ -5,41 +5,41 @@
       <h2>Let's Play!</h2>
     </div>
       <div class="gameDiv">
-        <div class="gameCount">Question: {{ gameCount }}</div>
         <div class="score">Score: {{ score }}</div>
-      <ul>
-  <template v-if="!game && !gameOver">
-    <li><p>Waiting for the other player...</p></li>
-  </template>
-  <template v-else-if="game && !gameOver">
-    <li v-html="currentQuestionText">{{ currentQuestionText }}</li>
-    <li
-      v-html="answer"
-      v-for="(answer, index) in questionBank"
-      class="answerButton"
-      :key="index"
-      @click="increaseScore(answer)"
-    >
-      {{ answer }}
-    </li>
-  </template>
-  <template v-else-if="user && gameOver && playerOneStatus === 'winner'">
-    <h2>You Won!!!!!!</h2>
-    <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
-  </template>
-  <template v-else-if="user && gameOver && playerTwoStatus === 'winner'">
-    <h2>You Won!!!!!!</h2>
-    <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
-  </template>
-  <template v-else-if="user && gameOver && playerOneStatus !== 'winner'">
-    <h2>You lost :(</h2>
-    <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
-  </template>
-  <template v-else-if="user && gameOver && playerTwoStatus !== 'winner'">
-    <h2>You lost :(</h2>
-    <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
-  </template>
-</ul>
+        <ul>
+          <template v-if="!game && !gameOver">
+            <li><p>Waiting for the other player...</p></li>
+          </template>
+          <template v-else-if="game && !gameOver">
+            <div class="gameCount">Question: {{ gameCount }}</div>
+            <li class="questionLi" v-html="currentQuestionText">{{ currentQuestionText }}</li>
+            <li
+              v-html="answer"
+              v-for="(answer, index) in questionBank"
+              class="answerButton"
+              :key="index"
+              @click="increaseScore(answer)"
+            >
+              {{ answer }}
+            </li>
+          </template>
+          <template v-else-if="user && gameOver && playerOneStatus === 'winner'">
+            <h2>You Won!!!!!!</h2>
+            <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
+          </template>
+          <template v-else-if="user && gameOver && playerTwoStatus === 'winner'">
+            <h2>You Won!!!!!!</h2>
+            <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
+          </template>
+          <template v-else-if="user && gameOver && playerOneStatus !== 'winner'">
+            <h2>You lost :(</h2>
+            <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
+          </template>
+          <template v-else-if="user && gameOver && playerTwoStatus !== 'winner'">
+            <h2>You lost :(</h2>
+            <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
+          </template>
+        </ul>
       </div>
   </div>
 </template>
@@ -255,6 +255,8 @@ export default {
 }
 .showcaseDiv h2{
   margin-top: 50px;
+  font-size: 38px;
+  margin-bottom: 10px;
 }
 .gameImages {
   width: 100%;
@@ -272,21 +274,28 @@ export default {
   list-style-type: none;
   padding-top: 50px;
 }
+.gameCount {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+.questionLi {
+  font-size: 20px;
+}
 .answerButton {
   margin: auto;
   width: 50%;
   margin-top: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
-  background-color: #ffffff;
-  color: #6775b6;
+  background-color: #6775b6;
+  color: #ffffff;
   font-size: 24px;
   border: 2px solid #ffffff;
   border-radius: 6px;
 }
 .answerButton:hover {
-    background-color: #6775b6;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #6775b6;
 }
 .score {
   font-size: 32px;
