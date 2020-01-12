@@ -126,4 +126,7 @@ button {
   background-color: #388e3c;
   border: none;
 }
+form {
+  padding-bottom: 20px;
+}
 </style>

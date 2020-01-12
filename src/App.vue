@@ -49,9 +49,11 @@ body {
 }
 .boomerFont {
   font-family: 'Baskervville', serif;
+  color: #ffffff;
 }
 .millennialFont {
   font-family: 'Monoton', cursive;
+  color: #ffffff;
 }
 a {
   color: #ffffff;

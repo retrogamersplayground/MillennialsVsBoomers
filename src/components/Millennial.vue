@@ -71,6 +71,7 @@ export default {
 }
 .showcaseDiv h2{
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 .millennialImages {
   width: 100%;
@@ -78,8 +79,11 @@ export default {
   color: white;
 }
 .millennialImage {
-  width: 45%;
+  width: 40%;
   display: inline-block;
+}
+.millennialImages h2 {
+  padding-top: 20px;
 }
 .millennialImage img {
   width: 70%;
@@ -99,5 +103,8 @@ button {
 button:hover {
     background-color: #6775b6;
     color: #ffffff;
+}
+form {
+  padding-bottom: 50px;
 }
 </style>

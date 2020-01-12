@@ -71,14 +71,18 @@ export default {
 }
 .showcaseDiv h2{
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 .boomerImages {
   width: 100%;
   background-color: #E38120;
   color: white;
 }
+.boomerImages h2 {
+  padding-top: 20px;
+}
 .boomerImage {
-  width: 45%;
+  width: 40%;
   display: inline-block;
 }
 .chooseH2 {
@@ -104,5 +108,8 @@ button {
 button:hover {
     background-color: #E38120;
     color: #ffffff;
+}
+form {
+  padding-bottom: 50px;
 }
 </style>
