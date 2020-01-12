@@ -101,7 +101,6 @@ export default {
         playerOneStatus: 'waiting'
       })
       this.playerOneStatus = 'waiting'
-      console.log(this.playerOne.id + ' ' + 'is' + ' ' + this.playerOneStatus )
     }
     if(this.playerTwoSet) {
       db.collection('lobby')
@@ -111,7 +110,6 @@ export default {
         playerTwoStatus: 'waiting'
       })
       this.playerTwoStatus = 'waiting'
-      console.log(this.playerTwo.id + ' ' + 'is' + ' ' + this.playerTwoStatus )
     }
     if (this.playerOneStatus === 'waiting') {
       db.collection('lobby')
@@ -123,8 +121,6 @@ export default {
           this.playerOneStatus = 'inGame'
           this.game = true
         })
-      console.log('test ' + this.playerOneOpponent)
-      console.log('test2 ' + this.playerOneStatus)
       })
       this.interval = setInterval(() => {
         if(this.playerOneStatus === 'waiting' || this.playerTwoStatus === 'waiting') {
@@ -145,19 +141,19 @@ export default {
           this.playerTwoStatus = 'inGame'
           this.game = true
         })
-      console.log('test ' + this.playerTwoOpponent)
-      console.log('test2 ' + this.playerTwoStatus)
       })
-    }
-    if (this.gameOver) {
-      this.playerOneSet = false
-      this.playerTwoSet = false
-      this.game = false
     }
     if (this.gameOver && (this.playerOne.score > this.playerTwo.score)) {
       this.playerOneStatus = 'winner'
     } else if (this.gameOver && (this.playerTwo.score > this.playerOne.score)) {
       this.playerTwoStatus = 'winner'
+    }
+    if (this.gameOver) {
+      this.playerOneSet = false
+      this.playerTwoSet = false
+      this.game = false
+      console.log(this.playerOneStatus)
+      console.log(this.playerTwoStatus)
     }
     await this.getQuestion()
   },
