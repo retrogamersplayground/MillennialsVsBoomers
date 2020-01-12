@@ -60,7 +60,7 @@ export default {
       gameCount: 1,
       answerArray: [],
       shuffledAnswers: [],
-      gameOver: false,      
+      gameOver: true,      
       user: firebase.auth().currentUser,
       uid: null,
       lobbyId: null,
