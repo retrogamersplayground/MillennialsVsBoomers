@@ -149,9 +149,8 @@ export default {
         })
       })
     }
-    if (this.playerOne.status === 'gameOver') {
+    while (this.playerOne.status === 'gameOver' && this.player.type === 'millennial' && this.playerOneOpponentScore === null) {
       db.collection('game')
-      .where('playerTwoStatus', '==', 'gameOver')
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc  => {
@@ -160,7 +159,7 @@ export default {
       })
       console.log(this.playerOneOpponetScore + ' boomer score')
     }
-    if (this.playerTwo.status === 'gameOver') {
+    while (this.playerTwo.status === 'gameOver' && this.player.type === 'boomer' && this.playerTwoOpponentScore === null) {
       db.collection('game')
       .where('playerOneStatus', '==', 'gameOver')
       .get()
