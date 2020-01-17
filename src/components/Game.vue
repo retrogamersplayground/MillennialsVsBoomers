@@ -200,10 +200,20 @@ export default {
         if (this.user && this.player.type === 'millennial')  {
           this.playerOne.score = this.score
           console.log(this.playerOne.score)
+          db.collection('game')
+          .add({
+            playerOneId: this.playerOne.id,
+            playerOneScore: this.playerOne.score
+          })
         }
         if (this.user && this.player.type === 'boomer')  {
           this.playerTwo.score = this.score
           console.log(this.playerTwo.score)
+          db.collection('game')
+          .add({
+            playerTwoId: this.playerTwo.id,
+            playerTwoScore: this.playerTwo.score
+          })
         }
       }
     }
