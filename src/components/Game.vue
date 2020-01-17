@@ -93,7 +93,9 @@ export default {
       playerOneOpponent: [],
       playerTwoOpponent: [],
       game: false,
-      interval: null
+      interval: null,
+      playerOneOpponentScore: null,
+      playerTwoOpponentScore: null
     }
   },
   async mounted () {
@@ -146,6 +148,28 @@ export default {
           this.game = true
         })
       })
+    }
+    if (this.playerOne.status === 'gameOver') {
+      db.collection('game')
+      .where('playerTwoStatus', '==', 'gameOver')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc  => {
+          this.playerOneOpponentScore = doc.data().playerTwoScore
+        })
+      })
+      console.log(this.playerOneOpponetScore + ' boomer score')
+    }
+    if (this.playerTwo.status === 'gameOver') {
+      db.collection('game')
+      .where('playerOneStatus', '==', 'gameOver')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc  => {
+          this.playerTwoOpponentScore = doc.data().playerOneScore
+        })
+      })
+      console.log(this.playerTwoOpponetScore + ' millennail score')
     }
     await this.getQuestion()
   },
