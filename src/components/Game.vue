@@ -2,7 +2,8 @@
   <div class="game">
     <app-navigation></app-navigation>
     <div class="showcaseDiv">
-      <h2>Let's Play!</h2>
+      <h2 v-if="!gameOver">Let's Play!</h2>
+      <h2 v-if="gameOver">Game Over</h2>
     </div>
       <div class="gameDiv">
         <div class="score">Score: {{ score }}</div>
@@ -33,7 +34,9 @@
           </template>
           <template v-else-if="user && gameOver && playerOneStatus !== 'winner'">
             <h2>You lost :(</h2>
-            <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
+            <video autoplay loop>
+              <source src="@/assets/winner2.mp4" alt="Elon dancing" type="video/mp4">
+            </video>
           </template>
           <template v-else-if="user && gameOver && playerTwoStatus !== 'winner'">
             <h2>You lost :(</h2>
@@ -143,18 +146,6 @@ export default {
         })
       })
     }
-    if (this.gameOver && (this.playerOne.score > this.playerTwo.score)) {
-      this.playerOneStatus = 'winner'
-    } else if (this.gameOver && (this.playerTwo.score > this.playerOne.score)) {
-      this.playerTwoStatus = 'winner'
-    }
-    if (this.gameOver) {
-      this.playerOneSet = false
-      this.playerTwoSet = false
-      this.game = false
-      console.log(this.playerOneStatus)
-      console.log(this.playerTwoStatus)
-    }
     await this.getQuestion()
   },
   methods: {
@@ -205,9 +196,8 @@ export default {
         this.gameCount += 1
         await this.getQuestion()
       } else {
-        this.playerOne.score = this.score
-        this.playerTwo.score = this.score
         this.gameOver = true
+        console.log(this.gameOver)
       }
     }
   },
@@ -296,6 +286,7 @@ export default {
 .answerButton:hover {
     background-color: #ffffff;
     color: #6775b6;
+    border: 2px solid #677fb6;
 }
 .score {
   font-size: 32px;
