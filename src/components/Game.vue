@@ -95,7 +95,6 @@ export default {
     }
   },
   async mounted () {
-    console.log(this.game)
     if(this.playerOneSet) {
       db.collection('lobby')
       .add({
@@ -197,7 +196,7 @@ export default {
         await this.getQuestion()
       } else {
         this.gameOver = true
-        console.log(this.gameOver "test")
+        console.log(this.gameOver + 'test')
       }
     }
   },
@@ -225,8 +224,6 @@ export default {
         this.playerTwo.time = this.player.time
         this.playerTwoSet = true
       }
-      console.log(this.playerOneSet)
-      console.log(this.playerTwoSet)
     }
   },
   components: {
