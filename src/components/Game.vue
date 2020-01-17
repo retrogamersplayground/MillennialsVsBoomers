@@ -155,7 +155,6 @@ export default {
     this.interval2 = setInterval(() => {
       if (this.gameOver && this.playerOneOpponetScore === null) {
         db.collection('game')
-        .where('playerTwoStatus', '==', 'gameOver')
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc  => {
@@ -171,7 +170,6 @@ export default {
     this.interval3 = setInterval(() => {
       if (this.gameOver && this.playerTwoOpponetScore === null) {
         db.collection('game')
-        .where('playerOneStatus', '==', 'gameOver')
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc  => {
