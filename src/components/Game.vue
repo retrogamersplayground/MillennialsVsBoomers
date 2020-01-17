@@ -197,7 +197,7 @@ export default {
         await this.getQuestion()
       } else {
         this.gameOver = true
-        console.log(this.gameOver)
+        console.log(this.gameOver "test")
       }
     }
   },
