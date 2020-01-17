@@ -94,6 +94,8 @@ export default {
       playerTwoOpponent: [],
       game: false,
       interval: null,
+      interval2: null,
+      interval3: null,
       playerOneOpponentScore: null,
       playerTwoOpponentScore: null
     }
@@ -149,26 +151,38 @@ export default {
         })
       })
     }
-    while (this.playerOne.status === 'gameOver' && this.player.type === 'millennial' && this.playerOneOpponentScore === null) {
-      db.collection('game')
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc  => {
-          this.playerOneOpponentScore = doc.data().playerTwoScore
+    this.interval2 = setInterval(() => {
+      if (this.playerOne.status === 'gameOver' && this.player.type === 'millennial' && this.playerOneOpponentScore === null) {
+        db.collection('game')
+        .where('playerTwoStatus', '==', 'gameOver')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc  => {
+            this.playerOneOpponentScore = doc.data().playerTwoScore
+          }) 
         })
-      })
-      console.log(this.playerOneOpponetScore + ' boomer score')
-    }
-    while (this.playerTwo.status === 'gameOver' && this.player.type === 'boomer' && this.playerTwoOpponentScore === null) {
-      db.collection('game')
-      .where('playerOneStatus', '==', 'gameOver')
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc  => {
-          this.playerTwoOpponentScore = doc.data().playerOneScore
+      } else if (this.playerTwo.status === 'gameOver' && this.player.type === 'boomer' && this.playerTwoOpponentScore !== null) {
+        clearInterval(this.interval)
+      }
+      console.log(this.playerTwoOpponetScore + ' millennial score')
+    }, 5000)
+    this.interval3 = setInterval(() => {
+      if (this.playerTwo.status === 'gameOver' && this.player.type === 'boomer' && this.playerTwoOpponentScore === null) {
+        db.collection('game')
+        .where('playerOneStatus', '==', 'gameOver')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc  => {
+            this.playerTwoOpponentScore = doc.data().playerOneScore
+          }) 
         })
-      })
-      console.log(this.playerTwoOpponetScore + ' millennail score')
+      } else if (this.playerTwo.status === 'gameOver' && this.player.type === 'boomer' && this.playerTwoOpponentScore !== null) {
+        clearInterval(this.interval)
+      }
+      console.log(this.playerTwoOpponetScore + ' millennial score')
+    }, 5000)
+    
+
     }
     await this.getQuestion()
   },
