@@ -151,12 +151,38 @@ export default {
         })
       })
     }
+    
     this.interval2 = setInterval(() => {
-      
-      console.log(this.playerTwoOpponetScore + ' millennial score')
+      if (gameOver && this.playerOneOpponetScore === null) {
+        db.collection('game')
+        .where('playerTwoStatus', '==', 'gameOver')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc  => {
+            this.playerOneOpponentScore = doc.data().playerTwoScore
+          }) 
+        })
+        console.log('boomer still playing')
+      } else if (gameOver && this.playerOneOpponetScore !==null) {
+          clearInterval(this.interval2)
+          console.log(this.playerTwoOpponetScore + ' boomer score')
+      }
     }, 5000)
     this.interval3 = setInterval(() => {
-      console.log(this.playerTwoOpponetScore + ' millennial score')
+      if (gameOver && this.playerTwoOpponetScore === null) {
+        db.collection('game')
+        .where('playerOneStatus', '==', 'gameOver')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc  => {
+            this.playerTwoOpponentScore = doc.data().playerOneScore
+          }) 
+        })
+        console.log('millennial still playing')
+      } else if (gameOver && this.playerTwoOpponetScore !==null) {
+          clearInterval(this.interval3)
+          console.log(this.playerTwoOpponetScore + ' millennial score')
+      }
     }, 5000)
 
     await this.getQuestion()
