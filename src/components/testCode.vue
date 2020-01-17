@@ -294,3 +294,34 @@ created () {
     playerTwoStatus: clearInterval(this.handle)
   },
   
+
+
+
+
+  /////////////////////////
+      if (this.playerTwo.status === 'gameOver' && this.player.type === 'boomer' && this.playerTwoOpponentScore === null) {
+        db.collection('game')
+        .where('playerOneStatus', '==', 'gameOver')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc  => {
+            this.playerTwoOpponentScore = doc.data().playerOneScore
+          }) 
+        })
+      } else if (this.playerTwo.status === 'gameOver' && this.player.type === 'boomer' && this.playerTwoOpponentScore !== null) {
+        clearInterval(this.interval)
+      }
+
+      //////////////////////
+      if (this.playerOne.status === 'gameOver' && this.player.type === 'millennial' && this.playerOneOpponentScore === null) {
+        db.collection('game')
+        .where('playerTwoStatus', '==', 'gameOver')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc  => {
+            this.playerOneOpponentScore = doc.data().playerTwoScore
+          }) 
+        })
+      } else if (this.playerTwo.status === 'gameOver' && this.player.type === 'boomer' && this.playerTwoOpponentScore !== null) {
+        clearInterval(this.interval)
+      }
