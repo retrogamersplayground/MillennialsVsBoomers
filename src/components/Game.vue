@@ -197,8 +197,10 @@ export default {
       } else {
         this.gameOver = true
         console.log(this.gameOver + ' test')
-        this.playerOne.score = this.score
-        console.log(this.playerOne.score)
+        if (this.user && this.player.type === 'millennial')  {
+          this.playerOne.score = this.score
+          console.log(this.playerOne.score)
+        }
       }
     }
   },
