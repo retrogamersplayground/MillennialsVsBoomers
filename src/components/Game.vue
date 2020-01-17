@@ -153,7 +153,7 @@ export default {
     }
     
     this.interval2 = setInterval(() => {
-      if (gameOver && this.playerOneOpponetScore === null) {
+      if (this.gameOver && this.playerOneOpponetScore === null) {
         db.collection('game')
         .where('playerTwoStatus', '==', 'gameOver')
         .get()
@@ -163,13 +163,13 @@ export default {
           }) 
         })
         console.log('boomer still playing')
-      } else if (gameOver && this.playerOneOpponetScore !==null) {
+      } else if (this.gameOver && this.playerOneOpponetScore !==null) {
           clearInterval(this.interval2)
           console.log(this.playerTwoOpponetScore + ' boomer score')
       }
     }, 5000)
     this.interval3 = setInterval(() => {
-      if (gameOver && this.playerTwoOpponetScore === null) {
+      if (this.gameOver && this.playerTwoOpponetScore === null) {
         db.collection('game')
         .where('playerOneStatus', '==', 'gameOver')
         .get()
@@ -179,7 +179,7 @@ export default {
           }) 
         })
         console.log('millennial still playing')
-      } else if (gameOver && this.playerTwoOpponetScore !==null) {
+      } else if (this.gameOver && this.playerTwoOpponetScore !==null) {
           clearInterval(this.interval3)
           console.log(this.playerTwoOpponetScore + ' millennial score')
       }
