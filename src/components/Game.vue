@@ -201,6 +201,10 @@ export default {
           this.playerOne.score = this.score
           console.log(this.playerOne.score)
         }
+        if (this.user && this.player.type === 'boomer')  {
+          this.playerTwo.score = this.score
+          console.log(this.playerTwo.score)
+        }
       }
     }
   },
