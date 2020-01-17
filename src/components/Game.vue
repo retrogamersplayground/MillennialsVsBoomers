@@ -76,13 +76,15 @@ export default {
         type: null,
         id: null,
         time: null,
-        score: 0
+        score: 0,
+        status: null
       },
       playerTwo: {
         type: null,
         id: null,
         time: null,
-        score: 0
+        score: 0,
+        status: null
       },
       playerOneSet: false,
       playerTwoSet: false,
@@ -203,8 +205,10 @@ export default {
           db.collection('game')
           .add({
             playerOneId: this.playerOne.id,
-            playerOneScore: this.playerOne.score
+            playerOneScore: this.playerOne.score,
+            playerOneStatus: 'gameOver'
           })
+          this.playerOne.status = 'gameOver'
         }
         if (this.user && this.player.type === 'boomer')  {
           this.playerTwo.score = this.score
@@ -212,8 +216,10 @@ export default {
           db.collection('game')
           .add({
             playerTwoId: this.playerTwo.id,
-            playerTwoScore: this.playerTwo.score
+            playerTwoScore: this.playerTwo.score,
+            playerTwoStatus: 'gameOver'
           })
+          this.playerTwo.status = 'gameOver'
         }
       }
     }
