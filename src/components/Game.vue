@@ -160,9 +160,10 @@ export default {
             this.playerOneOpponentScore = doc.data().playerTwoScore
           }) 
         })
-        //console.log(this.playerTwoOpponetScore + ' boomer score')
+        console.log(this.playerTwoOpponetScore + ' boomer score')
       } else if (this.gameOver && this.playerOneOpponetScore !==null) {
           clearInterval(this.interval2)
+          console.log("interval2 cleared")
       }
     }, 5000)
     /*this.interval3 = setInterval(() => {
