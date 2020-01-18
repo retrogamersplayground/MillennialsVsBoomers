@@ -151,7 +151,6 @@ export default {
         })
       })
     }
-    /*
     this.interval2 = setInterval(() => {
       if (this.gameOver && this.playerOneOpponetScore === null) {
         db.collection('game')
@@ -161,13 +160,12 @@ export default {
             this.playerOneOpponentScore = doc.data().playerTwoScore
           }) 
         })
-        console.log('boomer still playing')
-      } //else if (this.gameOver && this.playerOneOpponetScore !==null) {
-          //clearInterval(this.interval2)
-          console.log(this.playerTwoOpponetScore + ' boomer score')
-      //}
+        //console.log(this.playerTwoOpponetScore + ' boomer score')
+      } else if (this.gameOver && this.playerOneOpponetScore !==null) {
+          clearInterval(this.interval2)
+      }
     }, 5000)
-    this.interval3 = setInterval(() => {
+    /*this.interval3 = setInterval(() => {
       if (this.gameOver && this.playerTwoOpponetScore === null) {
         db.collection('game')
         .get()
@@ -182,9 +180,8 @@ export default {
           console.log(this.playerTwoOpponetScore + ' millennial score')
       //}
     }, 5000)
-*/
     await this.getQuestion()
-  },
+  },*/
   methods: {
     shuffle (array) {
       // eslint-disable-next-line
@@ -291,7 +288,7 @@ export default {
   }
 }
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 .game {
   text-align: center;
