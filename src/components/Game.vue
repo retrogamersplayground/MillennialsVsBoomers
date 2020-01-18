@@ -134,6 +134,18 @@ export default {
         }
       }, 5000)
     }
+    if (this.playerTwoStatus === 'waiting') {
+      db.collection('lobby')
+      .where('playerOneStatus', '==', 'waiting')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.playerTwoOpponent = doc.data().playerOneId
+          this.playerTwoStatus = 'inGame'
+          this.game = true
+        })
+      })
+    }
     await this.getQuestion()
   },
   methods: {
