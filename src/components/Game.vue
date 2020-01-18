@@ -160,13 +160,13 @@ export default {
             this.playerOneOpponentScore = doc.data().playerTwoScore
           }) 
         })
-        console.log(this.playerTwoOpponetScore + ' boomer score')
+        console.log('boomer still playing')
       } else if (this.gameOver && this.playerOneOpponetScore !==null) {
           clearInterval(this.interval2)
-          console.log("interval2 cleared")
+          console.log(this.playerTwoOpponetScore + ' boomer score')
       }
     }, 5000)
-    /*this.interval3 = setInterval(() => {
+    this.interval3 = setInterval(() => {
       if (this.gameOver && this.playerTwoOpponetScore === null) {
         db.collection('game')
         .get()
@@ -176,13 +176,14 @@ export default {
           }) 
         })
         console.log('millennial still playing')
-      } //else if (this.gameOver && this.playerTwoOpponetScore !==null) {
-          //clearInterval(this.interval3)
+      } else if (this.gameOver && this.playerTwoOpponetScore !==null) {
+          clearInterval(this.interval3)
           console.log(this.playerTwoOpponetScore + ' millennial score')
-      //}
+      }
     }, 5000)
+
     await this.getQuestion()
-  },*/
+  },
   methods: {
     shuffle (array) {
       // eslint-disable-next-line
