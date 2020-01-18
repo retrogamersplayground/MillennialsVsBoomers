@@ -134,30 +134,6 @@ export default {
         }
       }, 5000)
     }
-    if (this.playerTwoStatus === 'waiting') {
-      db.collection('lobby')
-      .where('playerOneStatus', '==', 'waiting')
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          this.playerTwoOpponent = doc.data().playerOneId
-          this.playerTwoStatus = 'inGame'
-          this.game = true
-        })
-      })
-    }
-    if (this.gameOver && (this.playerOne.score > this.playerTwo.score)) {
-      this.playerOneStatus = 'winner'
-    } else if (this.gameOver && (this.playerTwo.score > this.playerOne.score)) {
-      this.playerTwoStatus = 'winner'
-    }
-    if (this.gameOver) {
-      this.playerOneSet = false
-      this.playerTwoSet = false
-      this.game = false
-      console.log(this.playerOneStatus)
-      console.log(this.playerTwoStatus)
-    }
     await this.getQuestion()
   },
   methods: {
