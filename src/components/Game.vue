@@ -196,9 +196,8 @@ export default {
         this.gameCount += 1
         await this.getQuestion()
       } else {
-        this.playerOne.score = this.score
-        this.playerTwo.score = this.score
         this.gameOver = true
+        console.log(this.gameOver + ' test')
       }
     }
   },
