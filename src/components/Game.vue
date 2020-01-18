@@ -125,14 +125,6 @@ export default {
           this.game = true
         })
       })
-      this.interval = setInterval(() => {
-        if(this.playerOneStatus === 'waiting' || this.playerTwoStatus === 'waiting') {
-          window.location.reload(true)
-        }
-        else if(this.playerOneStatus === 'inGame' || this.playerTwoStatus === 'inGame') {
-          clearInterval(this.interval)
-        }
-      }, 5000)
     }
     if (this.playerTwoStatus === 'waiting') {
       db.collection('lobby')
@@ -146,6 +138,14 @@ export default {
         })
       })
     }
+    this.interval = setInterval(() => {
+      if(this.playerOneStatus === 'waiting' || this.playerTwoStatus === 'waiting'){
+        window.location.reload(true)
+      }
+      else if(this.playerOneStatus === 'inGame' || this.playerTwoStatus === 'inGame') {
+        clearInterval(this.interval)
+      }
+    }, 5000)
     await this.getQuestion()
   },
   methods: {
