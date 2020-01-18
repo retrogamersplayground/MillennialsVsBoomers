@@ -208,7 +208,7 @@ export default {
             playerOneStatus: 'gameOver'
           })
           this.playerOne.status = 'gameOver'
-          console.log("playerOne.status" + " " + playerOne.status)
+          console.log("playerOne.status" + " " + this.playerOne.status)
         }
         if (this.user && this.player.type === 'boomer')  {
           this.playerTwo.score = this.score
@@ -220,7 +220,7 @@ export default {
             playerTwoStatus: 'gameOver'
           })
           this.playerTwo.status = 'gameOver'
-          console.log("playerTwo.status" + " " + playerTwo.status)
+          console.log("playerTwo.status" + " " + this.playerTwo.status)
         }
       }
     }
