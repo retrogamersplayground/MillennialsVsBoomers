@@ -151,7 +151,7 @@ export default {
         })
       })
     }
-    
+    /*
     this.interval2 = setInterval(() => {
       if (this.gameOver && this.playerOneOpponetScore === null) {
         db.collection('game')
@@ -182,7 +182,7 @@ export default {
           console.log(this.playerTwoOpponetScore + ' millennial score')
       //}
     }, 5000)
-
+*/
     await this.getQuestion()
   },
   methods: {
