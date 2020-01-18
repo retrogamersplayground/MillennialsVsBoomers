@@ -76,15 +76,13 @@ export default {
         type: null,
         id: null,
         time: null,
-        score: 0,
-        status: null
+        score: 0
       },
       playerTwo: {
         type: null,
         id: null,
         time: null,
-        score: 0,
-        status: null
+        score: 0
       },
       playerOneSet: false,
       playerTwoSet: false,
@@ -93,14 +91,11 @@ export default {
       playerOneOpponent: [],
       playerTwoOpponent: [],
       game: false,
-      interval: null,
-      interval2: null,
-      interval3: null,
-      playerOneOpponentScore: null,
-      playerTwoOpponentScore: null
+      interval: null
     }
   },
   async mounted () {
+    console.log(this.game)
     if(this.playerOneSet) {
       db.collection('lobby')
       .add({
@@ -151,37 +146,18 @@ export default {
         })
       })
     }
-    this.interval2 = setInterval(() => {
-      if (this.gameOver && this.playerOneOpponetScore === null) {
-        db.collection('game')
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc  => {
-            this.playerOneOpponentScore = doc.data().playerTwoScore
-          }) 
-        })
-        console.log('boomer still playing')
-      } else if (this.gameOver && this.playerOneOpponetScore !==null) {
-          clearInterval(this.interval2)
-          console.log(this.playerTwoOpponetScore + ' boomer score')
-      }
-    }, 5000)
-    this.interval3 = setInterval(() => {
-      if (this.gameOver && this.playerTwoOpponetScore === null) {
-        db.collection('game')
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc  => {
-            this.playerTwoOpponentScore = doc.data().playerOneScore
-          }) 
-        })
-        console.log('millennial still playing')
-      } else if (this.gameOver && this.playerTwoOpponetScore !==null) {
-          clearInterval(this.interval3)
-          console.log(this.playerTwoOpponetScore + ' millennial score')
-      }
-    }, 5000)
-
+    if (this.gameOver && (this.playerOne.score > this.playerTwo.score)) {
+      this.playerOneStatus = 'winner'
+    } else if (this.gameOver && (this.playerTwo.score > this.playerOne.score)) {
+      this.playerTwoStatus = 'winner'
+    }
+    if (this.gameOver) {
+      this.playerOneSet = false
+      this.playerTwoSet = false
+      this.game = false
+      console.log(this.playerOneStatus)
+      console.log(this.playerTwoStatus)
+    }
     await this.getQuestion()
   },
   methods: {
@@ -232,30 +208,9 @@ export default {
         this.gameCount += 1
         await this.getQuestion()
       } else {
+        this.playerOne.score = this.score
+        this.playerTwo.score = this.score
         this.gameOver = true
-        console.log(this.gameOver + ' test')
-        if (this.user && this.player.type === 'millennial')  {
-          this.playerOne.score = this.score
-          console.log(this.playerOne.score)
-          db.collection('game')
-          .add({
-            playerOneId: this.playerOne.id,
-            playerOneScore: this.playerOne.score,
-            playerOneStatus: 'gameOver'
-          })
-          this.playerOne.status = 'gameOver'
-        }
-        if (this.user && this.player.type === 'boomer')  {
-          this.playerTwo.score = this.score
-          console.log(this.playerTwo.score)
-          db.collection('game')
-          .add({
-            playerTwoId: this.playerTwo.id,
-            playerTwoScore: this.playerTwo.score,
-            playerTwoStatus: 'gameOver'
-          })
-          this.playerTwo.status = 'gameOver'
-        }
       }
     }
   },
@@ -283,6 +238,8 @@ export default {
         this.playerTwo.time = this.player.time
         this.playerTwoSet = true
       }
+      console.log(this.playerOneSet)
+      console.log(this.playerTwoSet)
     }
   },
   components: {

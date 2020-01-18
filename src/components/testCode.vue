@@ -1,10 +1,9 @@
+
 <script>
 import axios from 'axios'
-
 import Navigation from './Navigation.vue'
 import firebase from 'firebase'
 import db from './firebaseInit'
-
 export default {
   data () {
     return {
@@ -19,8 +18,6 @@ export default {
       gameOver: false,      
       user: firebase.auth().currentUser,
       uid: null,
-      teamId: null,
-      teamId2: null,
       lobbyId: null,
       playerArray: [],
       type: '',
@@ -30,31 +27,114 @@ export default {
       playerOne: {
         type: null,
         id: null,
-        time: null
+        time: null,
+        score: 0,
+        status: null
       },
       playerTwo: {
         type: null,
         id: null,
-        time: null
+        time: null,
+        score: 0,
+        status: null
       },
       playerOneSet: false,
       playerTwoSet: false,
-      playerOneId: null,
-      playerTwoId: null,
       playerOneStatus: null,
       playerTwoStatus: null,
-      game: false
+      playerOneOpponent: [],
+      playerTwoOpponent: [],
+      game: false,
+      interval: null,
+      interval2: null,
+      interval3: null,
+      playerOneOpponentScore: null,
+      playerTwoOpponentScore: null
     }
   },
   async mounted () {
+    if(this.playerOneSet) {
+      db.collection('lobby')
+      .add({
+        playerOneId:
+        this.playerOne.id,
+        playerOneStatus: 'waiting'
+      })
+      this.playerOneStatus = 'waiting'
+    }
+    if(this.playerTwoSet) {
+      db.collection('lobby')
+      .add({
+        playerTwoId:
+        this.playerTwo.id,
+        playerTwoStatus: 'waiting'
+      })
+      this.playerTwoStatus = 'waiting'
+    }
+    if (this.playerOneStatus === 'waiting') {
+      db.collection('lobby')
+      .where('playerTwoStatus', '==', 'waiting')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.playerOneOpponent = doc.data().playerTwoId
+          this.playerOneStatus = 'inGame'
+          this.game = true
+        })
+      })
+      this.interval = setInterval(() => {
+        if(this.playerOneStatus === 'waiting' || this.playerTwoStatus === 'waiting') {
+          window.location.reload(true)
+        }
+        else if(this.playerOneStatus === 'inGame' || this.playerTwoStatus === 'inGame') {
+          clearInterval(this.interval)
+        }
+      }, 5000)
+    }
+    if (this.playerTwoStatus === 'waiting') {
+      db.collection('lobby')
+      .where('playerOneStatus', '==', 'waiting')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.playerTwoOpponent = doc.data().playerOneId
+          this.playerTwoStatus = 'inGame'
+          this.game = true
+        })
+      })
+    }
+    /*this.interval2 = setInterval(() => {
+      if (this.gameOver && this.playerOneOpponetScore === null) {
+        db.collection('game')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc  => {
+            this.playerOneOpponentScore = doc.data().playerTwoScore
+          }) 
+        })
+        console.log('boomer still playing')
+      } else if (this.gameOver && this.playerOneOpponetScore !==null) {
+          clearInterval(this.interval2)
+          console.log(this.playerTwoOpponetScore + ' boomer score')
+      }
+    }, 5000)
+    this.interval3 = setInterval(() => {
+      if (this.gameOver && this.playerTwoOpponetScore === null) {
+        db.collection('game')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc  => {
+            this.playerTwoOpponentScore = doc.data().playerOneScore
+          }) 
+        })
+        console.log('millennial still playing')
+      } else if (this.gameOver && this.playerTwoOpponetScore !==null) {
+          clearInterval(this.interval3)
+          console.log(this.playerTwoOpponetScore + ' millennial score')
+      }
+    }, 5000)
+  */
     await this.getQuestion()
-    await this.addData()
-    await this.fetchData()
-    await this.updateData()
-  },
-  watch: {
-    $route: 'fetchData',
-    $route: 'updateData'
   },
   methods: {
     shuffle (array) {
@@ -71,7 +151,6 @@ export default {
     },
     async getQuestion () {
       this.questionBank = []
-
       try {
         const res = await axios.get(
           'https://opentdb.com/api.php?amount=1&type=multiple'
@@ -84,14 +163,14 @@ export default {
           this.question.incorrect_answers[0],
           this.question.incorrect_answers[1],
           this.question.incorrect_answers[2]
-        ]
+        ] 
         this.shuffledAnswers = this.shuffle(this.answerArray)
         this.questionBank = [
           ...this.questionBank,
           ...this.shuffledAnswers
-        ]
+        ] 
       } catch (err) {
-        console.error(err)
+         console.error(err)
       }
     },
     async increaseScore (answer) {
@@ -105,108 +184,34 @@ export default {
         this.gameCount += 1
         await this.getQuestion()
       } else {
-        alert('GameOver')
         this.gameOver = true
-      }
-    },
-    async addData () {
-      if (this.playerOneSet) {
-        db.collection('status')
+        console.log(this.gameOver + ' test')
+        if (this.user && this.player.type === 'millennial')  {
+          this.playerOne.score = this.score
+          console.log(this.playerOne.score)
+          db.collection('game')
           .add({
-            playerOneId: this.playerOne.type + this.playerOne.id,
-            playerOneStatus: 'waiting'
+            playerOneId: this.playerOne.id,
+            playerOneScore: this.playerOne.score,
+            playerOneStatus: 'gameOver'
           })
-      } else if (this.playerTwoSet) {
-        db.collection('status')
+          this.playerOne.status = 'gameOver'
+        }
+        if (this.user && this.player.type === 'boomer')  {
+          this.playerTwo.score = this.score
+          console.log(this.playerTwo.score)
+          db.collection('game')
           .add({
-            playerTwoId: this.playerTwo.type + this.playerTwo.id,
-            playerTwoStatus: 'waiting'
+            playerTwoId: this.playerTwo.id,
+            playerTwoScore: this.playerTwo.score,
+            playerTwoStatus: 'gameOver'
           })
-      }
-    },
-    async fetchData () {
-      db.collection('status')
-      .get()
-      .then(querySnapshot => {
-        this.playerOneId = doc.data().playerOneId
-        this.playerTwoId = doc.data().playerTwoId
-        this.playerOneStatus = doc.data().playerOneStatus
-        this.playerTwoStatus = doc.data().playerTwoStatus
-        })
-    },
-    async updateData () {
-      while(this.playerTwoStatus === 'waiting') {
-        db.collection('status')
-        .where('playerOneStatus', '==', this.$route.params.playerOneStatus)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            doc.ref
-              .update({
-                playerOneStatus: 'inGame'
-              }) 
-              .add({
-                gameId: this.playerOneId + this.playerTwoId
-              })
-          })      
-        })
-      }
-      while(this.playerOneStatus === 'waiting') {
-        db.collection('status')
-        .where('playerTwoStatus', '==', this.$route.params.playerOneStatus)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            doc.ref
-              .update({
-                playerTwoStatus: 'inGame'
-              }) 
-              .add({
-                gameId: this.playerOneId + this.playerTwoId
-              })
-          })      
-        })
-      }
-      if (this.playerOne.status === 'inGame' || this.playerTwo.status === 'inGame') {
-        this.game = true
+          this.playerTwo.status = 'gameOver'
+        }
       }
     }
   },
   created () {
-    if (this.user != null) {
-      this.uid = this.user.uid
-      this.lobbyId = this.$route.params.lobbyId
-      this.playerArray.push(this.lobbyId.split('_'))
-      this.type = this.playerArray[0][0]
-      this.id = this.playerArray[0][1]
-      this.time = this.playerArray[0][2]
-      this.player = {
-        type: this.type,
-        id: this.id,
-        time: this.time
-      }
-      if (this.player.type === 'millennial') {
-        this.playerOne.type = this.player.type
-        this.playerOne.id = this.player.id
-        this.playerOne.time = this.player.time
-        this.playerOneSet = true
-      } else if (this.player.type === 'boomer') {
-        this.playerTwo.type = this.player.type
-        this.playerTwo.type = this.player.id
-        this.playerTwo.time = this.player.time
-        this.playerTwoSet = true
-      }
-    }
-  },
-  components: {
-    'app-navigation': Navigation
-  }
-}
-</script>
-
-
-<!--test 2 -->
-created () {
     if (this.user != null) {
       this.uid = this.user.uid
       this.lobbyId = this.$route.params.lobbyId
@@ -230,98 +235,10 @@ created () {
         this.playerTwo.time = this.player.time
         this.playerTwoSet = true
       }
-      console.log(this.playerOneSet)
-      console.log(this.playerTwoSet)
     }
   },
-  mounted () {
-    if(this.playerOneSet) {
-      db.collection('lobby')
-      .add({
-        playerOneId:
-        this.playerOne.id,
-        playerOneStatus: 'waiting'
-      })
-      this.playerOneStatus = 'waiting'
-      console.log(this.playerOne.id + ' ' + 'is' + ' ' + this.playerOneStatus )
-    }
-    if(this.playerTwoSet) {
-      db.collection('lobby')
-      .add({
-        playerTwoId:
-        this.playerTwo.id,
-        playerTwoStatus: 'waiting'
-      })
-      this.playerTwoStatus = 'waiting'
-      console.log(this.playerTwo.id + ' ' + 'is' + ' ' + this.playerTwoStatus )
-    }
-    if (this.playerOneStatus === 'waiting') {
-      db.collection('lobby')
-      .where('playerTwoStatus', '==', 'waiting')
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          this.playerOneOpponent = doc.data().playerTwoId
-          this.playerOneStatus = 'inGame'
-          this.game = true
-        })
-      console.log('test ' + this.playerOneOpponent)
-      console.log('test2 ' + this.playerOneStatus)
-      })
-    }
-    if (this.playerTwoStatus === 'waiting') {
-      db.collection('lobby')
-      .where('playerOneStatus', '==', 'waiting')
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          this.playerTwoOpponent = doc.data().playerOneId
-          this.playerTwoStatus = 'inGame'
-          this.game = true
-        })
-      console.log('test ' + this.playerTwoOpponent)
-      console.log('test2 ' + this.playerTwoStatus)
-      })
-    }
-    if (game) {
-      this.getQuestion()
-    }
-  },
-
-
-    watch: {
-    playerOneStatus: clearInterval(this.handle),
-    playerTwoStatus: clearInterval(this.handle)
-  },
-  
-
-
-
-
-  /////////////////////////
-      if (this.playerTwo.status === 'gameOver' && this.player.type === 'boomer' && this.playerTwoOpponentScore === null) {
-        db.collection('game')
-        .where('playerOneStatus', '==', 'gameOver')
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc  => {
-            this.playerTwoOpponentScore = doc.data().playerOneScore
-          }) 
-        })
-      } else if (this.playerTwo.status === 'gameOver' && this.player.type === 'boomer' && this.playerTwoOpponentScore !== null) {
-        clearInterval(this.interval)
-      }
-
-      //////////////////////
-      if (this.playerOne.status === 'gameOver' && this.player.type === 'millennial' && this.playerOneOpponentScore === null) {
-        db.collection('game')
-        .where('playerTwoStatus', '==', 'gameOver')
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc  => {
-            this.playerOneOpponentScore = doc.data().playerTwoScore
-          }) 
-        })
-      } else if (this.playerTwo.status === 'gameOver' && this.player.type === 'boomer' && this.playerTwoOpponentScore !== null) {
-        clearInterval(this.interval)
-      }
+  components: {
+    'app-navigation': Navigation
+  }
+}
+</script>
