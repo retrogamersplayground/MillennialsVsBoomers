@@ -185,7 +185,7 @@ export default {
         await this.getQuestion()
       } else {
         this.gameOver = true
-        console.log(this.gameOver + ' test')
+        console.log(this.gameOver + ' this.gameOver test')
         if (this.user && this.player.type === 'millennial')  {
           this.playerOne.score = this.score
           console.log(this.playerOne.score)

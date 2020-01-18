@@ -197,7 +197,31 @@ export default {
         await this.getQuestion()
       } else {
         this.gameOver = true
-        console.log(this.gameOver + ' test')
+        console.log(this.gameOver + ' this.gameOver test')
+        if (this.user && this.player.type === 'millennial')  {
+          this.playerOne.score = this.score
+          console.log(this.playerOne.score)
+          db.collection('game')
+          .add({
+            playerOneId: this.playerOne.id,
+            playerOneScore: this.playerOne.score,
+            playerOneStatus: 'gameOver'
+          })
+          this.playerOne.status = 'gameOver'
+          console.log("playerOne.status" + " " + playerOne.status)
+        }
+        if (this.user && this.player.type === 'boomer')  {
+          this.playerTwo.score = this.score
+          console.log(this.playerTwo.score)
+          db.collection('game')
+          .add({
+            playerTwoId: this.playerTwo.id,
+            playerTwoScore: this.playerTwo.score,
+            playerTwoStatus: 'gameOver'
+          })
+          this.playerTwo.status = 'gameOver'
+          console.log("playerTwo.status" + " " + playerTwo.status)
+        }
       }
     }
   },
