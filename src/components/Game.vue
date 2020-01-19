@@ -159,7 +159,7 @@ export default {
           }) 
         })
         console.log('playerTwoScore' + ' ' + this.playerOneOpponentScore)
-      } else if (this.playerOneOpponetScore !== null) {                
+      } else if (this.playerOneOpponentScore !== null) {                
         console.log('playerTwoScore' + ' ' + this.playerOneOpponentScore)
       }
     this.interval3 = setInterval(() => {
