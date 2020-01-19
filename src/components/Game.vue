@@ -159,8 +159,8 @@ export default {
           }) 
         })
         console.log('playerTwoScore' + ' ' + this.playerOneOpponentScore)
-      } else {                
-        console.log('boomer still playing')
+      } else if (this.playerOneOpponetScore !== null) {                
+        console.log('playerTwoScore' + ' ' + this.playerOneOpponentScore)
       }
     this.interval3 = setInterval(() => {
       if (this.gameOver && this.playerTwoOpponetScore === null) {
