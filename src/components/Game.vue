@@ -158,6 +158,8 @@ export default {
             this.playerOneOpponentScore = doc.data().playerTwoScore
           }) 
         })
+        console.log('playerTwoScore' + ' ' + this.playerOneOpponentScore)
+      } else {                
         console.log('boomer still playing')
       }
     this.interval3 = setInterval(() => {
