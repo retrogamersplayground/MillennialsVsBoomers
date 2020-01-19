@@ -204,7 +204,7 @@ export default {
       }
       console.log('playerOne' + ' ' + this.playerOne.outcome)
       console.log('playerTwo' + ' ' + this.playerTwo.outcome)
-    })
+    }, 5000)
     await this.getQuestion()
   },
   methods: {
