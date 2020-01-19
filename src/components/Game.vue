@@ -165,7 +165,7 @@ export default {
         console.log('interval2 cleared')
         console.log('player two score ' + this.playerOneOpponentScore)
       }
-    })
+    }, 5000)
     
     
     await this.getQuestion()
