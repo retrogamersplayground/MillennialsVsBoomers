@@ -159,8 +159,8 @@ export default {
           this.playerOneOpponentScore = doc.data().playerTwoScore
         })
       })
-      console.log('player two score ' + this.playerOneOpponentScore)
     }
+    console.log('player two score ' + this.playerOneOpponentScore)
     await this.getQuestion()
   },
   methods: {
