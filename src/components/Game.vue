@@ -150,7 +150,6 @@ export default {
         clearInterval(this.interval)
       }
     }, 5000)
-    this.interval2 = setInterval(() => {
       if (1 === 1) {
         db.collection('game')
         .get()
@@ -161,7 +160,6 @@ export default {
         })
         console.log('boomer still playing')
       } 
-    }, 5000)
     this.interval3 = setInterval(() => {
       if (this.gameOver && this.playerTwoOpponetScore === null) {
         db.collection('game')
