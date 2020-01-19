@@ -152,7 +152,7 @@ export default {
     }, 5000)
     this.interval2 = setInterval(() => {
       if (this.gameOver && this.playerOneOpponetScore === null) {
-        console.log('test ' + this.interval2)
+        console.log('test ' + ' ' + 'this.interval2')
       } 
     }, 5000)
     this.interval3 = setInterval(() => {
