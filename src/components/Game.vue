@@ -150,7 +150,7 @@ export default {
         clearInterval(this.interval)
       }
     }, 5000)
-      if (this.gameOver && this.playerOneOpponetScore === null) {
+      if (this.playerOne.status === 'gameOver' && this.playerOneOpponetScore === null) {
         db.collection('game')
         .get()
         .then(querySnapshot => {
