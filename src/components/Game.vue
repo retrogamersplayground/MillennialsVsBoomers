@@ -162,6 +162,18 @@ export default {
         console.log('boomer still playing')
       } 
     }, 5000)
+    this.interval3 = setInterval(() => {
+      if (this.gameOver && this.playerTwoOpponetScore === null) {
+        db.collection('game')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc  => {
+            this.playerTwoOpponentScore = doc.data().playerOneScore
+          }) 
+        })
+        console.log('millennial still playing')
+      } 
+    }, 5000)
     await this.getQuestion()
   },
   methods: {
