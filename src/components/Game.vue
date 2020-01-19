@@ -76,13 +76,15 @@ export default {
         type: null,
         id: null,
         time: null,
-        score: null
+        score: null,
+        outcome: null
       },
       playerTwo: {
         type: null,
         id: null,
         time: null,
-        score: null
+        score: null,
+        outcome: null
       },
       playerOneSet: false,
       playerTwoSet: false,
@@ -94,6 +96,7 @@ export default {
       interval: null,
       interval2: null,
       interval3: null,
+      interval4: null,
       playerOneOpponentScore: null,
       playerTwoOpponentScore: null
     }
@@ -184,6 +187,23 @@ export default {
         this.playerOne.score = this.playerTwoOpponentScore
       }
     }, 5000)
+    this.interval4 = setInterval(() => {
+      if (this.playerOne.score !== null && this.playerTwo.score !== null) {
+        if (this.playerOne.score > this.playerTwo.score) {
+          this.playerOne.outcome = 'winner'
+          this.playerTwo.outcome = 'loser'
+        } else if (this.playerOne.score === this.playerTwo.score) {
+          this.playerOne.outcome = 'tie'
+          this.playerTwo.outcome = 'tie'
+        } else if (this.playerOne.score < this.playerTwo.score)
+          this.playerOne.outcome = 'loser'
+          this.playerTwo.outcome = 'winner'
+      } else {
+        clearInterval(this.interval4)
+      }
+      console.log('playerOne' + ' ' + this.playerOne.outcome)
+      console.log('playerTwo' + ' ' + this.playerTwo.outcome)
+    })
     await this.getQuestion()
   },
   methods: {
