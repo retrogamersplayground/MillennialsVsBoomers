@@ -91,7 +91,11 @@ export default {
       playerOneOpponent: [],
       playerTwoOpponent: [],
       game: false,
-      interval: null
+      interval: null,
+      interval2: null,
+      interval3: null,
+      playerOneOpponentScore: null,
+      playerTwoOpponentScore: null
     }
   },
   async mounted () {
@@ -145,6 +149,18 @@ export default {
       else if(this.playerOneStatus === 'inGame' || this.playerTwoStatus === 'inGame') {
         clearInterval(this.interval)
       }
+    }, 5000)
+    this.interval2 = setInterval(() => {
+      if (this.gameOver && this.playerOneOpponetScore === null) {
+        db.collection('game')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc  => {
+            this.playerOneOpponentScore = doc.data().playerTwoScore
+          }) 
+        })
+        console.log('boomer still playing')
+      } 
     }, 5000)
     await this.getQuestion()
   },
