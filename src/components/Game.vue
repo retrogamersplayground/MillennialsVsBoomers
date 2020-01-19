@@ -152,9 +152,10 @@ export default {
     }, 5000)
       if (this.playerOneOpponetScore === null) {
         db.collection('game')
+        .where('playerOneStatus', '==', 'gameOver')
         .get()
         .then(querySnapshot => {
-          querySnapshot.forEach(doc  => {
+          querySnapshot.forEach(doc => {
             this.playerOneOpponentScore = doc.data().playerTwoScore
           }) 
         })
