@@ -160,9 +160,10 @@ export default {
             this.playerOneOpponentScore = doc.data().playerTwoScore
           })
         })
-        console.log('player two score ' + this.playerOneOpponentScore)
       } else if (this.playerOneOpponent !== null) {
+        clearInterval(this.interval2)
         console.log('interval2 cleared')
+        console.log('player two score ' + this.playerOneOpponentScore)
       }
     })
     
