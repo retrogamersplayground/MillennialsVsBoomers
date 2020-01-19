@@ -151,7 +151,7 @@ export default {
       }
     }, 5000)
     this.interval2 = setInterval(() => {
-      if (this.playerOneOpponent === null) {
+      if (this.playerOneOpponentScore === null) {
         db.collection('game')
         .where('playerTwoStatus', '==', 'gameOver')
         .get()
@@ -160,7 +160,7 @@ export default {
             this.playerOneOpponentScore = doc.data().playerTwoScore
           })
         })
-      } else if (this.playerOneOpponent !== null) {
+      } else if (this.playerOneOpponentScore !== null) {
         clearInterval(this.interval2)
         console.log('interval2 cleared')
         console.log('player two score ' + this.playerOneOpponentScore)
