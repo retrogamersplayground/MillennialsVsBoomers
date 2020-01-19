@@ -150,17 +150,23 @@ export default {
         clearInterval(this.interval)
       }
     }, 5000)
-    if (this.playerOneStatus === 'gameOver') {
-      db.collection('game')
-      .where('playerTwoStatus', '==', 'gameOver')
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          this.playerOneOpponentScore = doc.data().playerTwoScore
+    this.interval2 = setInterval(() => {
+      if (this.playerOneOpponent === null) {
+        db.collection('game')
+        .where('playerTwoStatus', '==', 'gameOver')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            this.playerOneOpponentScore = doc.data().playerTwoScore
+          })
         })
-      })
-    }
-    console.log('player two score ' + this.playerOneOpponentScore)
+        console.log('player two score ' + this.playerOneOpponentScore)
+      } else if (this.playerOneOpponent !== null) {
+        console.log('interval2 cleared')
+      }
+    })
+    
+    
     await this.getQuestion()
   },
   methods: {
