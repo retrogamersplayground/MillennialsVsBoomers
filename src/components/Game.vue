@@ -150,7 +150,7 @@ export default {
         clearInterval(this.interval)
       }
     }, 5000)
-      if (this.playerOneOpponetScore === null) {
+      while (this.playerOneOpponetScore === null) {
         db.collection('game')
         .where('playerOneStatus', '==', 'gameOver')
         .get()
@@ -160,8 +160,8 @@ export default {
           }) 
         })
         console.log('playerTwoScore' + ' ' + this.playerOneOpponentScore)
-      } else if (this.playerOneOpponentScore !== null) {                
-        console.log('playerTwoScore' + ' ' + this.playerOneOpponentScore)
+      } //else if (this.playerOneOpponentScore !== null) {                
+        //console.log('playerTwoScore' + ' ' + this.playerOneOpponentScore)
       }
     this.interval3 = setInterval(() => {
       if (this.gameOver && this.playerTwoOpponetScore === null) {
