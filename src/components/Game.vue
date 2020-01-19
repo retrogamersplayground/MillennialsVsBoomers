@@ -76,13 +76,13 @@ export default {
         type: null,
         id: null,
         time: null,
-        score: 0
+        score: null
       },
       playerTwo: {
         type: null,
         id: null,
         time: null,
-        score: 0
+        score: null
       },
       playerOneSet: false,
       playerTwoSet: false,
@@ -164,10 +164,26 @@ export default {
         clearInterval(this.interval2)
         console.log('interval2 cleared')
         console.log('player two score ' + this.playerOneOpponentScore)
+        this.playerTwo.score = this.playerOneOpponentScore
       }
     }, 5000)
-    
-    
+    this.interval3 = setInterval(() => {
+      if (this.playerTwoOpponentScore === null) {
+        db.collection('game')
+        .where('playerOneStatus', '==', 'gameOver')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            this.playerTwoOpponentScore = doc.data().playerOneScore
+          })
+        })
+      } else if (this.playerTwoOpponentScore !== null) {
+        clearInterval(this.interval3)
+        console.log('interval3 cleared')
+        console.log('player one score ' + this.playerTwoOpponentScore)
+        this.playerOne.score = this.playerTwoOpponentScore
+      }
+    }, 5000)
     await this.getQuestion()
   },
   methods: {
