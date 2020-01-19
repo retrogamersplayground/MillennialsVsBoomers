@@ -150,7 +150,7 @@ export default {
         clearInterval(this.interval)
       }
     }, 5000)
-    if (this.playerOne.status === 'gameOver') {
+    if (this.playerOneStatus === 'gameOver') {
       db.collection('game')
       .where('playerTwoStatus', '==', 'gameOver')
       .get()
