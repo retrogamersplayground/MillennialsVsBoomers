@@ -151,7 +151,7 @@ export default {
       }
     }, 5000)
     this.interval2 = setInterval(() => {
-      if (this.gameOver && this.playerOneOpponetScore === null) {
+      if (1 === 1) {
         db.collection('game')
         .get()
         .then(querySnapshot => {
