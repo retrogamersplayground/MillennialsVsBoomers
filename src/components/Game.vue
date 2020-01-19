@@ -150,19 +150,11 @@ export default {
         clearInterval(this.interval)
       }
     }, 5000)
-      while (this.playerOneOpponetScore === null) {
-        db.collection('game')
-        .where('playerOneStatus', '==', 'gameOver')
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            this.playerOneOpponentScore = doc.data().playerTwoScore
-          }) 
-        })
-        console.log('playerTwoScore' + ' ' + this.playerOneOpponentScore)
-      } //else if (this.playerOneOpponentScore !== null) {                
-        //console.log('playerTwoScore' + ' ' + this.playerOneOpponentScore)
-      //}
+    this.interval2 = setInterval(() => {
+      if (this.gameOver && this.playerOneOpponetScore === null) {
+        console.log('test ' + this.interval2)
+      } 
+    }, 5000)
     this.interval3 = setInterval(() => {
       if (this.gameOver && this.playerTwoOpponetScore === null) {
         db.collection('game')
