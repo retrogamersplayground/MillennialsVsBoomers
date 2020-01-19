@@ -192,14 +192,15 @@ export default {
         if (this.playerOne.score > this.playerTwo.score) {
           this.playerOne.outcome = 'winner'
           this.playerTwo.outcome = 'loser'
+          clearInterval(this.interval4)
         } else if (this.playerOne.score === this.playerTwo.score) {
           this.playerOne.outcome = 'tie'
           this.playerTwo.outcome = 'tie'
+          clearInterval(this.interval4)
         } else if (this.playerOne.score < this.playerTwo.score)
           this.playerOne.outcome = 'loser'
           this.playerTwo.outcome = 'winner'
-      } else {
-        clearInterval(this.interval4)
+          clearInterval(this.interval4)
       }
       console.log('playerOne' + ' ' + this.playerOne.outcome)
       console.log('playerTwo' + ' ' + this.playerTwo.outcome)
