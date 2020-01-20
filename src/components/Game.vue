@@ -24,23 +24,23 @@
               {{ answer }}
             </li>
           </template>
-          <template v-else-if="this.user && this.player.type === 'millennial' && gameOver && playerOne.outcome === 'winner' && playerTwo.score !== null">
+          <template v-else-if="user && player.type === 'millennial' && gameOver && playerOne.outcome === 'winner' && playerTwo.score !== null">
             <h2>You won!!</h2>
             <video autoplay loop>
               <source src="@/assets/winner2.mp4" alt="Elon dancing" type="video/mp4">
             </video>
           </template>
-          <template v-else-if="this.user && this.player.type === 'boomer' && gameOver && playerOne.outcome !== 'winner' && playerOne.outcome !== 'tie' && playerOne.score !== null">
+          <template v-else-if="user && player.type === 'boomer' && gameOver && playerOne.outcome !== 'winner' && playerOne.outcome !== 'tie' && playerOne.score !== null">
             <h2>You won!!</h2>
             <video autoplay loop>
               <source src="@/assets/winner2.mp4" alt="Elon dancing" type="video/mp4">
             </video>
           </template>
-          <template v-else-if="this.user && this.player.type === 'millennial' && gameOver && playerOne.outcome !== 'winner' && playerOne.outcome !== 'tie'">
+          <template v-else-if="user && player.type === 'millennial' && gameOver && playerOne.outcome !== 'winner' && playerOne.outcome !== 'tie'">
             <h2>You lost :(</h2>
             <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
           </template>
-          <template v-else-if="this.user && this.player.type === 'boomer' && gameOver && playerOne.outcome === 'winner'">
+          <template v-else-if="user && player.type === 'boomer' && gameOver && playerOne.outcome === 'winner'">
             <h2>You lost :(</h2>
             <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
           </template>
