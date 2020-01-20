@@ -24,33 +24,31 @@
               {{ answer }}
             </li>
           </template>
-          <template v-else-if="user && gameOver && playerOne.outcome === 'winner'">
-            <h2>You Won!!!!!!</h2>
-            <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
-          </template>
-          <template v-else-if="user && gameOver && playerTwo.outcome === 'winner'">
-            <h2>You Won!!!!!!</h2>
-            <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
-          </template>
-          <template v-else-if="user && gameOver && playerOneStatus === 'looser'">
-            <h2>You lost :(</h2>
+          <template v-else-if="this.user && this.player.type === 'millennial' && gameOver && playerOne.outcome === 'winner'">
+            <h2>You won!!</h2>
             <video autoplay loop>
               <source src="@/assets/winner2.mp4" alt="Elon dancing" type="video/mp4">
             </video>
           </template>
-          <template v-else-if="user && gameOver && playerTwoStatus === 'looser'">
-            <h2>You lost :(</h2>
-            <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
-          </template>
-          <template v-else-if="user && gameOver && playerOneStatus === 'tie'">
-            <h2>You tied</h2>
+          <template v-else-if="this.user && this.player.type === 'boomer' && gameOver && playerOne.outcome !== 'winner' && playerOne.outcome !== 'tie'">
+            <h2>You won!!</h2>
             <video autoplay loop>
               <source src="@/assets/winner2.mp4" alt="Elon dancing" type="video/mp4">
             </video>
           </template>
-          <template v-else-if="user && gameOver && playerTwoStatus === 'tie'">
-            <h2>You tied</h2>
+          <template v-else-if="this.user && this.player.type === 'millennial' && gameOver && playerOne.outcome !== 'winner' && playerOne.outcome !== 'tie'">
+            <h2>You lost :(</h2>
             <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
+          </template>
+          <template v-else-if="this.user && this.player.type === 'boomer' && gameOver && playerOne.outcome === 'winner'">
+            <h2>You lost :(</h2>
+            <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
+          </template>
+          <template v-else-if="user && gameOver && playerOne.outcome === 'tie'">
+            <h2>You tied</h2>
+            <video autoplay loop>
+              <source src="@/assets/temgtriggered.gif" alt="triggered Canadian" type="video/mp4">
+            </video>
           </template>
         </ul>
       </div>
@@ -94,7 +92,6 @@ export default {
         id: null,
         time: null,
         score: null,
-        outcome: null
       },
       playerOneSet: false,
       playerTwoSet: false,
@@ -112,6 +109,7 @@ export default {
     }
   },
   async mounted () {
+    //if the players have entered the lobby change status to waiting and add to db
     console.log(this.game)
     if(this.playerOneSet) {
       db.collection('lobby')
@@ -131,6 +129,7 @@ export default {
       })
       this.playerTwoStatus = 'waiting'
     }
+    //check to see if other player is waiting, change to inGame if so
     if (this.playerOneStatus === 'waiting') {
       db.collection('lobby')
       .where('playerTwoStatus', '==', 'waiting')
@@ -155,6 +154,7 @@ export default {
         })
       })
     }
+    //reload window so that questions load for first player to enter the lobby
     this.interval = setInterval(() => {
       if(this.playerOneStatus === 'waiting' || this.playerTwoStatus === 'waiting'){
         window.location.reload(true)
@@ -163,6 +163,7 @@ export default {
         clearInterval(this.interval)
       }
     }, 5000)
+    //get player two score from db
     this.interval2 = setInterval(() => {
       if (this.playerOneOpponentScore === null) {
         db.collection('game')
@@ -180,6 +181,7 @@ export default {
         this.playerTwo.score = this.playerOneOpponentScore
       }
     }, 5000)
+    //get player one score from db
     this.interval3 = setInterval(() => {
       if (this.playerTwoOpponentScore === null) {
         db.collection('game')
@@ -197,23 +199,18 @@ export default {
         this.playerOne.score = this.playerTwoOpponentScore
       }
     }, 5000)
+    //determine the winnner
     this.interval4 = setInterval(() => {
       if (this.playerOne.score !== null && this.playerTwo.score !== null) {
         if (parseInt(this.playerOne.score) > parseInt(this.playerTwo.score)) {
           this.playerOne.outcome = 'winner'
-          this.playerTwo.outcome = 'loser'
           clearInterval(this.interval4)
         } else if (parseInt(this.playerOne.score) === parseInt(this.playerTwo.score)) {
           this.playerOne.outcome = 'tie'
-          this.playerTwo.outcome = 'tie'
           clearInterval(this.interval4)
-        } else if (parseInt(this.playerOne.score) < parseInt(this.playerTwo.score))
-          this.playerOne.outcome = 'loser'
-          this.playerTwo.outcome = 'winner'
-          clearInterval(this.interval4)
+        }
       }
       console.log('playerOne' + ' ' + this.playerOne.outcome)
-      console.log('playerTwo' + ' ' + this.playerTwo.outcome)
     }, 5000)
     await this.getQuestion()
   },
@@ -230,6 +227,7 @@ export default {
       }
       return array
     },
+    //get questions and answers from api
     async getQuestion () {
       this.questionBank = []
       try {
@@ -244,7 +242,8 @@ export default {
           this.question.incorrect_answers[0],
           this.question.incorrect_answers[1],
           this.question.incorrect_answers[2]
-        ] 
+        ]
+        //shuffle answers
         this.shuffledAnswers = this.shuffle(this.answerArray)
         this.questionBank = [
           ...this.questionBank,
@@ -254,6 +253,7 @@ export default {
          console.error(err)
       }
     },
+    //increase the score for correct answers
     async increaseScore (answer) {
       if (this.gameCount < 10) {
         if (answer === this.correct_answer) {
@@ -265,6 +265,7 @@ export default {
         this.gameCount += 1
         await this.getQuestion()
       } else {
+        //make gameOver true, assign score to players,add score and gameOver status to db
         this.gameOver = true
         console.log(this.gameOver + ' this.gameOver test')
         if (this.user && this.player.type === 'millennial')  {
