@@ -189,15 +189,15 @@ export default {
     }, 5000)
     this.interval4 = setInterval(() => {
       if (this.playerOne.score !== null && this.playerTwo.score !== null) {
-        if (this.playerOne.score > this.playerTwo.score) {
+        if (parseInt(this.playerOne.score) > parseInt(this.playerTwo.score)) {
           this.playerOne.outcome = 'winner'
           this.playerTwo.outcome = 'loser'
           clearInterval(this.interval4)
-        } else if (this.playerOne.score === this.playerTwo.score) {
+        } else if (parseInt(this.playerOne.score) === parseInt(this.playerTwo.score)) {
           this.playerOne.outcome = 'tie'
           this.playerTwo.outcome = 'tie'
           clearInterval(this.interval4)
-        } else if (this.playerOne.score < this.playerTwo.score)
+        } else if (parseInt(this.playerOne.score) < parseInt(this.playerTwo.score))
           this.playerOne.outcome = 'loser'
           this.playerTwo.outcome = 'winner'
           clearInterval(this.interval4)
