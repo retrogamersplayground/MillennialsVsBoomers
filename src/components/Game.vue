@@ -24,22 +24,32 @@
               {{ answer }}
             </li>
           </template>
-          <template v-else-if="user && gameOver && playerOneStatus === 'winner'">
+          <template v-else-if="user && gameOver && playerOne.outcome === 'winner'">
             <h2>You Won!!!!!!</h2>
             <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
           </template>
-          <template v-else-if="user && gameOver && playerTwoStatus === 'winner'">
+          <template v-else-if="user && gameOver && playerTwo.outcome === 'winner'">
             <h2>You Won!!!!!!</h2>
             <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
           </template>
-          <!--<template v-else-if="user && gameOver && playerOneStatus !== 'winner'">
+          <template v-else-if="user && gameOver && playerOneStatus === 'looser'">
             <h2>You lost :(</h2>
             <video autoplay loop>
               <source src="@/assets/winner2.mp4" alt="Elon dancing" type="video/mp4">
             </video>
-          </template>-->
-          <template v-else-if="user && gameOver && playerTwoStatus !== 'winner'">
+          </template>
+          <template v-else-if="user && gameOver && playerTwoStatus === 'looser'">
             <h2>You lost :(</h2>
+            <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
+          </template>
+          <template v-else-if="user && gameOver && playerOneStatus === 'tie'">
+            <h2>You tied</h2>
+            <video autoplay loop>
+              <source src="@/assets/winner2.mp4" alt="Elon dancing" type="video/mp4">
+            </video>
+          </template>
+          <template v-else-if="user && gameOver && playerTwoStatus === 'tie'">
+            <h2>You tied</h2>
             <img src="@/assets/temgtriggered.gif" alt="triggered Canadian" />
           </template>
         </ul>
